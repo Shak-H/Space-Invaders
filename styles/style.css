@@ -22,7 +22,7 @@ h1 {
 .score-board-lives {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 60%;
 }
 
@@ -77,22 +77,24 @@ h1 {
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
   background: black;
-  height: 70%;
-  width: 70%;
+  height: 800px;
+  width: 600px;
 }
 
 .grid div {
-  border: 1px solid red;
+  border: 1px solid;
 }
 
 .reset {
-  margin-top: 5%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .alien {
   background: url('./images/alien.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 
 .player {
@@ -102,7 +104,8 @@ h1 {
 }
 
 .bullet {
-  background: url('./images/missile.jpg');
+  background: url('./images/missile2.jpg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
 }
