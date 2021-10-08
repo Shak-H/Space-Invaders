@@ -33,7 +33,11 @@ h1 {
 }
 
 .score-board p {
-  margin-top: 0;
+  margin: 0;
+}
+
+#score {
+  font-size: 48px;
 }
 
 .player-lives {
@@ -50,14 +54,19 @@ h1 {
   display: flex;
   flex-direction: row;
   height: 75%;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-top: 5%;
+  align-content: center;
 }
 
 .lives {
-  border: 1px solid black;
+  border: 2px solid black;
   height: 80%;
-  width: 30%;
+  width: 32%;
+  background: url('./images/heart.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .grid {
