@@ -5,7 +5,7 @@ SPACE-INVADERS - this is my first project from the General Assembly course SEI-5
 My psuedo code for the game
 
 <!-- HTML -->
-<!-- div with flex box that contains everything -->
+<!-- main with flex box that contains everything -->
   <!-- div with flex box that contains score board div and lives div -->
    <!-- score board div has a <p> with a <span> that needs to be edited when a 'alien' is hit -->
    <!-- lives div has a flex box with a <p> with a <span> that needs to be edited if 'aliens' reach 'planets surface' -->
