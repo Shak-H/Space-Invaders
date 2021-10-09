@@ -1,14 +1,8 @@
-const cells = document.querySelectorAll('.grid div')
-console.log(cells)
+
+// variable needed to start/reset game
 let hasGameStarted = false
 
-// const cellsArray = Array.from(cells).map((cell) => {
-//   return cell.classList.contains('grid div')
-// })
-// console.log(cellsArray)
-
-// const startingRows = cellsArray.slice(0, 29)
-// console.log(startingRows)
+// have random amount of aliens appear on first 3 rows
 
 const startingRows = Array.from({length: 29}).fill('grid div')
 
@@ -16,12 +10,21 @@ const randomisedAliens = () => {
   if (Math.random() > 0.5) {
     return 'alien'
   }
-  
 }
 
 const firstAliens = startingRows.map(randomisedAliens)
 console.log(firstAliens)
 
+const cells = document.querySelectorAll('.grid div')
+console.log(cells)
+
 cells.forEach((cell, i) => {
   cell.classList.add(firstAliens[i])
 })
+
+//have player appear on random cell in bottom row
+const allCellsArray = Array.from(cells)
+console.log(allCellsArray)
+
+const bottomRow = allCellsArray.slice(90, 99).fill('grid div')
+console.log(bottomRow)
