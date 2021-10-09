@@ -41,10 +41,33 @@ cells.forEach((cell, i) => {
 const allCellsArray = Array.from(cells)
 console.log(allCellsArray)
 
-const playerIndex = allCellsArray[94]
-console.log(playerIndex)
+const playerStartingCell = allCellsArray[94]
+console.log(playerStartingCell)
 
-const addPlayer = function() {
-  return playerIndex.classList.add('player')
+const addPlayer = () => {
+  return playerStartingCell.classList.add('player')
 }
 addPlayer()
+
+//move player
+
+playerIndex = allCellsArray.indexOf(playerStartingCell)
+console.log(playerIndex)
+
+const handleArrowLeft = () => {
+  const newIndex = playerIndex -1
+  playerStartingCell.classList.remove('player')
+  allCellsArray[newIndex].classList.add('player')
+}
+
+document.addEventListener('keydown', function (event) {
+  switch (event.key) {
+    case 'ArrowLeft':
+      handleArrowLeft()
+      break
+    case 'ArrowRight':
+      handleArrowRight()
+      break
+  }
+})
+
