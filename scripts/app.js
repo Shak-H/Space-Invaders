@@ -22,16 +22,6 @@ cells.forEach((cell, i) => {
   cell.classList.add(firstAliens[i])
 })
 
-//have player appear on random cell in bottom row
-const allCellsArray = Array.from(cells)
-// console.log(allCellsArray)
-
-const bottomRow = allCellsArray.slice(90, 99).fill('grid div')
-// console.log(bottomRow)
-
-const randomIndex = (Math.floor(Math.random()*bottomRow.length))+90
-// const randomisedPlayerCell = bottomRow[randomIndex]
-console.log(randomIndex)
 
 // cells.forEach((cell) => {
 //   cell.classList.add(bottomRow[randomIndex])
@@ -40,6 +30,17 @@ console.log(randomIndex)
 // start player on bottom row
 // const allCellsArray = Array.from(cells)
 // console.log(allCellsArray)
+// const randomisedPlayerCell = bottomRow[randomIndex]
+
+//have player appear on random cell in bottom row
+const allCellsArray = Array.from(cells)
+console.log(allCellsArray)
+
+const bottomRow = allCellsArray.slice(90, 99).fill('grid div')
+console.log(bottomRow)
+
+const randomIndex = (Math.floor(Math.random()*bottomRow.length))+90
+console.log(randomIndex)
 
 const playerStartingCell = allCellsArray[randomIndex]
 console.log(playerStartingCell)
@@ -51,13 +52,15 @@ addPlayer()
 
 //move player
 
-playerIndex = allCellsArray.indexOf(playerStartingCell)
+let playerIndex = allCellsArray.indexOf(playerStartingCell)
 console.log(playerIndex)
 
 const handleArrowLeft = () => {
+  
   const newIndex = playerIndex -1
-  playerStartingCell.classList.remove('player')
+  allCellsArray[playerIndex].classList.remove('player')
   allCellsArray[newIndex].classList.add('player')
+  playerIndex = newIndex
 }
 
 
