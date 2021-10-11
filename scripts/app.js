@@ -56,27 +56,26 @@ let playerIndex = allCellsArray.indexOf(playerStartingCell)
 console.log(playerIndex)
 
 const handleArrowLeft = () => {
-  
-  const newIndex = playerIndex -1
-  
-
-  // const newCell = allTheCells[newIndex]
-
-  if (playerIndex % 10 === 0) {
+    const newIndex = playerIndex -1
+    if (playerIndex % 10 === 0) {
     console.log('cant move - at edge')
     return
   }
-
   allCellsArray[playerIndex].classList.remove('player')
   allCellsArray[newIndex].classList.add('player')
   playerIndex = newIndex
-
 }
 
-const isPlayerAtLeftEdge = () => {
-
+const handleArrowRight = () => {
+  const newIndex = playerIndex +1
+  if ((playerIndex+1) % 10 === 0) {
+  console.log('cant move - at edge')
+  return
 }
-
+allCellsArray[playerIndex].classList.remove('player')
+allCellsArray[newIndex].classList.add('player')
+playerIndex = newIndex
+}
 
 document.addEventListener('keydown', function (event) {
   switch (event.key) {
