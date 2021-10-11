@@ -88,3 +88,33 @@ document.addEventListener('keydown', function (event) {
   }
 })
 
+//initalise bullet
+
+const addBullet = () => {
+  console.log(allCellsArray[playerIndex-10])
+  return allCellsArray[playerIndex-10].classList.add('bullet')
+  
+}
+addBullet()
+
+//move bullet
+
+const bulletIndex = allCellsArray[playerIndex-10]
+
+ const moveBullet = () => {
+  setInterval(function() {
+    const newIndex = bulletIndex-10
+    const newCell = allCellsArray[newIndex]
+    if (newCell.classList.contains('alien')){
+      newCell.classList.remove('alien')
+      allCellsArray[bulletIndex].classList.remove('bullet')
+    }
+
+    allCellsArray[bulletIndex].classList.remove('bullet')
+    newCell.classList.add('bullet')
+    bulletIndex = newIndex
+  }), 1000}
+
+  moveBullet()
+
+  
