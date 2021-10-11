@@ -22,16 +22,6 @@ cells.forEach((cell, i) => {
   cell.classList.add(firstAliens[i])
 })
 
-
-// cells.forEach((cell) => {
-//   cell.classList.add(bottomRow[randomIndex])
-// })
-
-// start player on bottom row
-// const allCellsArray = Array.from(cells)
-// console.log(allCellsArray)
-// const randomisedPlayerCell = bottomRow[randomIndex]
-
 //have player appear on random cell in bottom row
 const allCellsArray = Array.from(cells)
 console.log(allCellsArray)
@@ -96,8 +86,7 @@ const addBullet = () => {
   
 }
 
-
-//move bullet
+//fire bullet
 
 const bulletIndex = allCellsArray[playerIndex-10]
 let intervalId
@@ -111,7 +100,6 @@ const fireBullet = () => {
       let index = allCellsArray.indexOf(cell)
       console.log(index)
       if (index<10){
-        
         allCellsArray[index].classList.remove('bullet')
         clearInterval(intervalId)
       } else if (allCellsArray[index-10].classList.contains('alien')){
@@ -126,15 +114,8 @@ const fireBullet = () => {
     } 
     }
   ) 
-}, 1000) 
-
+}, 500) 
 }
-
-
-// const stopBullet = () => {
-//   clearInterval(intervalId)
-//   intervalId = null
-// }
 
 document.addEventListener('keydown', function (event) {
   switch (event.key) {
@@ -143,6 +124,65 @@ document.addEventListener('keydown', function (event) {
       addBullet()
       fireBullet()
       break
-    
   }
 })
+
+// move aliens
+
+function findAliens(arr, val) {
+  let indexes = [], i=-1
+  while((i=arr.indexOf(val, i+1)) != -1) {
+    indexes.push(i)
+  }
+  return indexes
+}
+
+let alienIndexes = findAliens(firstAliens, 'alien')
+console.log(alienIndexes)
+
+const newIndexes = (array) => {
+  return array.map((index) => index-1)
+  
+}
+console.log(newIndexes(alienIndexes))
+
+// let alienIntervalId
+
+// const moveAliens = () => {
+//   console.log(alienIndexes)
+//   alienIntervalId = setInterval(() => {
+//     const moveLeft = () => {
+//     let nextIndexes = newIndexes(alienIndexes)
+    // if (alienIndexes % 10 === 0) {
+    //   console.log('cant move - at edge')
+    //   moveDown()
+    //   moveLeft = false
+    // }
+//     allCellsArray[alienIndexes].classList.remove('alien')
+//     allCellsArray[nextIndexes].classList.add('alien')
+//     alienIndexes = nextIndexes
+//   moveLeft()
+//    } 
+// }, 500)
+
+// }
+// moveAliens()
+
+// console.log(moveAliens())
+
+let alienIntervalId
+
+const moveAliens = () => {
+ alienIntervalId = setInterval(() => {
+   for(i=0; i<allCellsArray.length;i++){
+    console.log(allCellsArray[i])
+    if(allCellsArray[i].classList.contains('alien')){
+    allCellsArray[i].classList.remove('alien')
+    allCellsArray[(i-1)].classList.add('alien')
+    clearInterval(alienIntervalId)
+   }
+  } 
+ },3000)
+}
+
+moveAliens()
