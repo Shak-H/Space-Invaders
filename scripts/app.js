@@ -106,10 +106,15 @@ const fireBullet = () => {
   console.log('bullet')
   allCellsArray.map(cell => {
     console.log(cell)
+    
     if (cell.classList.contains('bullet')) {
       let index = allCellsArray.indexOf(cell)
       console.log(index)
-      if (allCellsArray[index-10].classList.contains('alien')){
+      if (index<10){
+        
+        allCellsArray[index].classList.remove('bullet')
+        clearInterval(intervalId)
+      } else if (allCellsArray[index-10].classList.contains('alien')){
         allCellsArray[index - 10].classList.remove('alien')
         allCellsArray[index].classList.remove('bullet')
         clearInterval(intervalId)
@@ -119,7 +124,8 @@ const fireBullet = () => {
       
       } 
     } 
-  }) 
+    }
+  ) 
 }, 1000) 
 
 }
