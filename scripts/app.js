@@ -108,13 +108,16 @@ const moveBullet = setInterval(() => {
     if (cell.classList.contains('bullet')) {
       let index = allCellsArray.indexOf(cell)
       console.log(index)
+      if (allCellsArray[index-10].classList.contains('alien')){
+        allCellsArray[index - 10].classList.remove('alien')
+        allCellsArray[index].classList.remove('bullet')
+      } else {
       allCellsArray[index - 10].classList.add('bullet')
       allCellsArray[index].classList.remove('bullet')
     }
+  }
   })
 
-}, 3000)
-// if (allCellsArray[index-10].contains('alien')){
-//   allCellsArray[index - 10].classList.remove('alien')
-//   allCellsArray[index].classList.remove('bullet')
-// } else {
+}, 1000)
+
+
