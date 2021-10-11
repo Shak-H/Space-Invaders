@@ -101,20 +101,20 @@ addBullet()
 
 const bulletIndex = allCellsArray[playerIndex-10]
 
- const moveBullet = () => {
-  setInterval(function() {
-    const newIndex = bulletIndex-10
-    const newCell = allCellsArray[newIndex]
-    if (newCell.classList.contains('alien')){
-      newCell.classList.remove('alien')
-      allCellsArray[bulletIndex].classList.remove('bullet')
+const moveBullet = setInterval(() => {
+  console.log('bullet')
+  allCellsArray.map(cell => {
+    console.log(cell)
+    if (cell.classList.contains('bullet')) {
+      let index = allCellsArray.indexOf(cell)
+      console.log(index)
+      allCellsArray[index - 10].classList.add('bullet')
+      allCellsArray[index].classList.remove('bullet')
     }
+  })
 
-    allCellsArray[bulletIndex].classList.remove('bullet')
-    newCell.classList.add('bullet')
-    bulletIndex = newIndex
-  }), 1000}
-
-  moveBullet()
-
-  
+}, 3000)
+// if (allCellsArray[index-10].contains('alien')){
+//   allCellsArray[index - 10].classList.remove('alien')
+//   allCellsArray[index].classList.remove('bullet')
+// } else {
