@@ -95,13 +95,14 @@ const addBullet = () => {
   return allCellsArray[playerIndex-10].classList.add('bullet')
   
 }
-addBullet()
+
 
 //move bullet
 
 const bulletIndex = allCellsArray[playerIndex-10]
 
-const moveBullet = setInterval(() => {
+const fireBullet = () => {
+  const moveBullet = setInterval(() => {
   console.log('bullet')
   allCellsArray.map(cell => {
     console.log(cell)
@@ -111,13 +112,24 @@ const moveBullet = setInterval(() => {
       if (allCellsArray[index-10].classList.contains('alien')){
         allCellsArray[index - 10].classList.remove('alien')
         allCellsArray[index].classList.remove('bullet')
+        return
       } else {
       allCellsArray[index - 10].classList.add('bullet')
       allCellsArray[index].classList.remove('bullet')
-    }
+      return
+      }
+    } return
+  }) 
+}, 1000) }
+
+
+document.addEventListener('keydown', function (event) {
+  switch (event.key) {
+    case 'f':
+      console.log('pressed f key')
+      addBullet()
+      fireBullet()
+      break
+    
   }
-  })
-
-}, 1000)
-
-
+})
