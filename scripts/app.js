@@ -173,16 +173,49 @@ console.log(newIndexes(alienIndexes))
 let alienIntervalId
 
 const moveAliens = () => {
- alienIntervalId = setInterval(() => {
+alienIntervalId = setInterval(() => {
+ let moveLeft = true
+ let moveRight = false
+ while(moveLeft === true) {
    for(i=0; i<allCellsArray.length;i++){
     console.log(allCellsArray[i])
     if(allCellsArray[i].classList.contains('alien')){
     allCellsArray[i].classList.remove('alien')
     allCellsArray[(i-1)].classList.add('alien')
-    clearInterval(alienIntervalId)
+    if(allCellsArray[i] % 10 === 0){
+      moveDown()
+      moveLeft = false
+      moveRight = true
+    }
    }
   } 
- },3000)
+ }
+while(moveRight === true) {
+  for(i=0; i<allCellsArray.length;i++){
+   console.log(allCellsArray[i])
+   if(allCellsArray[i].classList.contains('alien')){
+   allCellsArray[i].classList.remove('alien')
+   allCellsArray[(i+1)].classList.add('alien')
+    if(allCellsArray[i] % 10 === 0){
+     moveDown()
+     moveRight = false
+     moveLeft = true
+    }
+   }
+  } 
+ }
+},3000)
 }
 
-moveAliens()
+
+moveAliens() //this will be called in start game
+
+const moveDown = () => {
+  for(i=0; i<allCellsArray.length;i++){
+    console.log(allCellsArray[i])
+    if(allCellsArray[i].classList.contains('alien')){
+    allCellsArray[i].classList.remove('alien')
+    allCellsArray[(i-10)].classList.add('alien')
+  }
+ }
+}
