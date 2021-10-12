@@ -99,7 +99,7 @@ My psuedo code for the game
   
 
 <!-- EXTRAS -->
-<!-- start button -->
+<!-- start button --> added midway through as having all code execute whenever reloaded wasnt helpful when trying to check and debug
 <!-- new level - when all aliens removed - level intensity increases -->
 <!-- function to save players progress (leaderBoard) -->
 <!-- sound plays when alien hit -->

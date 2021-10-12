@@ -18,9 +18,7 @@ console.log(firstAliens)
 const cells = document.querySelectorAll('.grid div')
 console.log(cells)
 
-cells.forEach((cell, i) => {
-  cell.classList.add(firstAliens[i])
-})
+
 
 //have player appear on random cell in bottom row
 const allCellsArray = Array.from(cells)
@@ -38,7 +36,7 @@ console.log(playerStartingCell)
 const addPlayer = () => {
   return playerStartingCell.classList.add('player')
 }
-addPlayer()
+
 
 //move player
 
@@ -207,8 +205,7 @@ while(moveRight === true) {
 },3000)
 }
 
-
-moveAliens() //this will be called in start game
+ //this will be called in start game
 
 const moveDown = () => {
   for(i=0; i<allCellsArray.length;i++){
@@ -219,3 +216,19 @@ const moveDown = () => {
   }
  }
 }
+
+//start game function
+
+const start = document.querySelector('#start')
+
+const startGame = () => {
+  //initialise aliens
+  cells.forEach((cell, i) => {
+    cell.classList.add(firstAliens[i])
+  })
+  addPlayer()
+  moveAliens()
+
+}
+
+start.addEventListener('click', startGame)
