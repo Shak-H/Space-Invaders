@@ -35,7 +35,14 @@ My psuedo code for the game
 <!-- JS -->
 <!-- variable with an array of ALL .grid divs -->
 <!-- // initialise aliens -->
-<!-- function randomisedClass setting out which cells in the top 3 rows have aliens (maybe set the other sells to be 'free')-->
+<!-- function randomisedClass setting out which cells in the top 3 rows have aliens (maybe set the other sells to be 'free')--> this was more complicated
+
+first needed array of all div nodes and then needed to add class of 'grid div'
+then needed an array of first 3 rows
+then needed a function to randomly return alien(class) or grid div (class)
+then need to create a new array (map) of the first 3 rows with the randomly selected alien(classes)
+then needed to concat these 2 arrays
+
 <!-- (if need free cells) const setting the remaning cells in grid to have a class of 'free/empmty' -->
 <!-- // initialise player -->
 <!-- variable with an array of all cells in bottom row of grid -->

@@ -3,45 +3,79 @@
 let hasGameStarted = false
 
 // have random amount of aliens appear on first 3 rows
+let cells = document.querySelectorAll('.grid div')
+console.log('cells', cells)
 
-const startingRows = Array.from({length: 29}).fill('grid div')
+const allCellsArray = Array.from(cells).fill('default')
+console.log("allCellsArray", allCellsArray)
+
+const startingRows = allCellsArray.slice(0, 29)
+console.log('startingRows', startingRows)
+
+const remainingRows = allCellsArray.slice(28, 99)
+console.log('remainingRows', remainingRows)
 
 const randomisedAliens = () => {
   if (Math.random() > 0.5) {
     return 'alien'
+  } else {
+    return 'default'
   }
 }
 
 const firstAliens = startingRows.map(randomisedAliens)
-console.log(firstAliens)
+console.log('firstAliens', firstAliens)
 
-const cells = document.querySelectorAll('.grid div')
-console.log(cells)
+let gridMap = firstAliens.concat(remainingRows)
+console.log('gridMap', gridMap)
 
+const addAliens = () => {
+  cells.forEach((cell, i) => {
+  cell.classList.add(gridMap[i])
+})
+}
+
+
+// const addAliens = () => {
+//   //code here
+// }
+// console.log('addAliens', addAliens())
+
+//start game function
+
+const start = document.querySelector('#start')
+
+const startGame = () => {
+  
+  addAliens()
+  addPlayer()
+  moveAliens()
+
+}
+
+start.addEventListener('click', startGame)
 
 
 //have player appear on random cell in bottom row
-const allCellsArray = Array.from(cells)
-console.log(allCellsArray)
 
-const bottomRow = allCellsArray.slice(90, 99).fill('grid div')
-console.log(bottomRow)
+
+const bottomRow = gridMap.slice(90, 99)
+console.log('bottowRow', bottomRow)
 
 const randomIndex = (Math.floor(Math.random()*bottomRow.length))+90
-console.log(randomIndex)
+console.log('randomIndex', randomIndex)
 
-const playerStartingCell = allCellsArray[randomIndex]
-console.log(playerStartingCell)
+const playerStartingCell = cells[randomIndex]
+console.log('playerStartingCell', playerStartingCell)
 
 const addPlayer = () => {
   return playerStartingCell.classList.add('player')
 }
 
-
 //move player
 
-let playerIndex = allCellsArray.indexOf(playerStartingCell)
-console.log(playerIndex)
+let playerIndex = Array.from(cells).indexOf(playerStartingCell)
+console.log('playerIndex', playerIndex)
 
 const handleArrowLeft = () => {
     const newIndex = playerIndex -1
@@ -49,8 +83,8 @@ const handleArrowLeft = () => {
     console.log('cant move - at edge')
     return
   }
-  allCellsArray[playerIndex].classList.remove('player')
-  allCellsArray[newIndex].classList.add('player')
+  cells[playerIndex].classList.remove('player')
+  cells[newIndex].classList.add('player')
   playerIndex = newIndex
 }
 
@@ -60,8 +94,8 @@ const handleArrowRight = () => {
   console.log('cant move - at edge')
   return
 }
-allCellsArray[playerIndex].classList.remove('player')
-allCellsArray[newIndex].classList.add('player')
+cells[playerIndex].classList.remove('player')
+cells[newIndex].classList.add('player')
 playerIndex = newIndex
 }
 
@@ -79,34 +113,34 @@ document.addEventListener('keydown', function (event) {
 //initalise bullet
 
 const addBullet = () => {
-  console.log(allCellsArray[playerIndex-10])
-  return allCellsArray[playerIndex-10].classList.add('bullet')
+  console.log('cells[playerIndex-10]', cells[playerIndex-10])
+  return cells[playerIndex-10].classList.add('bullet')
   
 }
 
 //fire bullet
 
-const bulletIndex = allCellsArray[playerIndex-10]
+const bulletIndex = gridMap[playerIndex-10]
 let intervalId
 const fireBullet = () => {
   intervalId = setInterval(() => {
   console.log('bullet')
-  allCellsArray.map(cell => {
-    console.log(cell)
+  Array.from(cells).map(cell => {
+    console.log('cell', cell)
     
     if (cell.classList.contains('bullet')) {
-      let index = allCellsArray.indexOf(cell)
-      console.log(index)
+      let index = Array.from(cells).indexOf(cell)
+      console.log('index', index)
       if (index<10){
-        allCellsArray[index].classList.remove('bullet')
+        cells[index].classList.remove('bullet')
         clearInterval(intervalId)
-      } else if (allCellsArray[index-10].classList.contains('alien')){
-        allCellsArray[index - 10].classList.remove('alien')
-        allCellsArray[index].classList.remove('bullet')
+      } else if (cells[index-10].classList.contains('alien')){
+        cells[index - 10].classList.remove('alien')
+        cells[index].classList.remove('bullet')
         clearInterval(intervalId)
       } else {
-      allCellsArray[index - 10].classList.add('bullet')
-      allCellsArray[index].classList.remove('bullet')
+      cells[index - 10].classList.add('bullet')
+      cells[index].classList.remove('bullet')
       
       } 
     } 
@@ -128,7 +162,8 @@ document.addEventListener('keydown', function (event) {
 // move aliens
 
 function findAliens(arr, val) {
-  let indexes = [], i=-1
+  let indexes = [];
+  let i=-1;
   while((i=arr.indexOf(val, i+1)) != -1) {
     indexes.push(i)
   }
@@ -136,13 +171,13 @@ function findAliens(arr, val) {
 }
 
 let alienIndexes = findAliens(firstAliens, 'alien')
-console.log(alienIndexes)
+console.log('alienIndexes', alienIndexes)
 
 const newIndexes = (array) => {
   return array.map((index) => index-1)
   
 }
-console.log(newIndexes(alienIndexes))
+console.log('newIndexes(alientIndexes)', newIndexes(alienIndexes))
 
 // let alienIntervalId
 
@@ -174,13 +209,14 @@ const moveAliens = () => {
 alienIntervalId = setInterval(() => {
  let moveLeft = true
  let moveRight = false
- while(moveLeft === true) {
-   for(i=0; i<allCellsArray.length;i++){
-    console.log(allCellsArray[i])
-    if(allCellsArray[i].classList.contains('alien')){
-    allCellsArray[i].classList.remove('alien')
-    allCellsArray[(i-1)].classList.add('alien')
-    if(allCellsArray[i] % 10 === 0){
+ if(moveLeft === true) {
+   for(i=0; i<cells.length;i++){
+    console.log('cells[i]', cells[i])
+    if(cells[i].classList.contains('alien')){
+    cells[i].classList.remove('alien')
+    cells[i-1].classList.add('alien')
+    console.log('cells[(i-1)]', cells[(i-1)])
+    if(cells[i] % 10 === 0){
       moveDown()
       moveLeft = false
       moveRight = true
@@ -188,13 +224,13 @@ alienIntervalId = setInterval(() => {
    }
   } 
  }
-while(moveRight === true) {
-  for(i=0; i<allCellsArray.length;i++){
-   console.log(allCellsArray[i])
-   if(allCellsArray[i].classList.contains('alien')){
-   allCellsArray[i].classList.remove('alien')
-   allCellsArray[(i+1)].classList.add('alien')
-    if(allCellsArray[i] % 10 === 0){
+if(moveRight === true) {
+  for(i=0; i<cells.length;i++){
+   console.log('cells[i]', cells[i])
+   if(cells[i].classList.contains('alien')){
+   cells[i].classList.remove('alien')
+   cells[i+1].classList.add('alien')
+    if(cells[i] % 10 === 0){
      moveDown()
      moveRight = false
      moveLeft = true
@@ -208,27 +244,12 @@ while(moveRight === true) {
  //this will be called in start game
 
 const moveDown = () => {
-  for(i=0; i<allCellsArray.length;i++){
-    console.log(allCellsArray[i])
-    if(allCellsArray[i].classList.contains('alien')){
-    allCellsArray[i].classList.remove('alien')
-    allCellsArray[(i-10)].classList.add('alien')
+  for(i=0; i<cells.length;i++){
+    console.log('cells[i]', cells[i])
+    if(cells[i].classList.contains('alien')){
+    cells[i].classList.remove('alien')
+    cells[i-10].classList.add('alien')
   }
  }
 }
 
-//start game function
-
-const start = document.querySelector('#start')
-
-const startGame = () => {
-  //initialise aliens
-  cells.forEach((cell, i) => {
-    cell.classList.add(firstAliens[i])
-  })
-  addPlayer()
-  moveAliens()
-
-}
-
-start.addEventListener('click', startGame)
