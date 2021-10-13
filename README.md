@@ -44,10 +44,12 @@ then need to create a new array (map) of the first 3 rows with the randomly sele
 then needed to concat these 2 arrays
 
 <!-- (if need free cells) const setting the remaning cells in grid to have a class of 'free/empmty' -->
+
 <!-- // initialise player -->
 <!-- variable with an array of all cells in bottom row of grid -->
 <!-- variable to randomly select cell from bottom row of grid -->
 <!-- variable of player index to set what cell the player starts in -->
+
 <!-- // move player -->
 <!-- document.addEventlistner('keydown') with function with swtich statement that calls function for player movement dependant on key pressed -->
 <!-- function for move in certain direction depending on which key pressed -->
@@ -55,6 +57,7 @@ then needed to concat these 2 arrays
  <!-- player index needs to change with each move -->
  <!-- needs to know if player at edge -->
 <!-- function to stop players moving off edge -->
+
 <!-- // move aliens -->
 <!-- function with setInterval to move aliens (difficulty - getting groups to move in formation)-->
 <!-- aliens need to move left (function)  -->
@@ -70,6 +73,7 @@ then needed to concat these 2 arrays
 <!-- needs a function to check (if at left edge) and (if at right edge)-->
  <!-- needs to call moveDown() ??-->
 <!-- cell index of EACH alien needs to change each time they move -->
+
 <!-- // initialise bullet(s) -->
 <!-- first 'bullet' cell index dependent on 'playerIndex' -->
  <!-- this needs to be stored in a variable 'bulletIndex' -->
