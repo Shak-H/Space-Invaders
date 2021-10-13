@@ -7,6 +7,7 @@ let alienId
 let results = document.querySelector('#score')
 let lives = document.querySelector('#lives')
 let aliensRemoved = []
+let score = 0
 
 
 // have random amount of aliens appear on first 3 rows
@@ -198,9 +199,10 @@ const fireBullet = () => {
       } else if (cells[index-10].classList.contains('alien')){
         cells[index - 10].classList.remove('alien')
         cells[index].classList.remove('bullet')
-        const alienRemoved = alien.indexOf(index-10)
+        const alienRemoved = aliens.indexOf(index-10)
         aliensRemoved.push(alienRemoved)
-        score.innerHTML += 50
+        score += 50
+        results.innerHTML = score
         clearInterval(fireBulletId)
       } else {
       cells[index - 10].classList.add('bullet')
