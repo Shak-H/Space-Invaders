@@ -10,7 +10,7 @@ const allCellsArray = Array.from(cells)
 // console.log("allCellsArray", allCellsArray)
 
 const startingRowsOfNodes = Array.from(cells).slice(0, 29)
-console.log('startingRowOfNodes.length', startingRowsOfNodes.length)
+// console.log('startingRowOfNodes.length', startingRowsOfNodes.length)
 // const startingRows = allCellsArray.slice(0, 29)
 // console.log('startingRows', startingRows)
 const remainingRowsOfNodes = Array.from(cells).slice(28,99)
@@ -33,7 +33,7 @@ const addAliens = () => {
 }
 }
 
-console.log(allCellsArray)
+
 // console.log('randomisedAliens', randomisedAliens())
 
 // const firstAliens = startingRows.map(randomisedAliens)
@@ -55,8 +55,10 @@ const start = document.querySelector('#start')
 
 const startGame = () => {
   addAliens()
+  console.log('allCellsArray', allCellsArray)
+  console.log('cells', cells)
   addPlayer()
-  // moveAliens()
+  moveAliens()
 }
 
 start.addEventListener('click', startGame)
@@ -161,57 +163,92 @@ document.addEventListener('keydown', function (event) {
 })
 
 // move aliens
-// let alienIntervalId
 
-// const moveAliens = () => {
-//   alienIntervalId = setInterval(() => {
-//    let moveLeft = true
-//    let moveRight = false
-//   //  const atLeftEdge = 
-//    if(moveLeft === true) {
-//      for(i=0; i<cells.length;i++){
-//       console.log(gridMap[i])
-//       if(gridMap[i]==='alien' && i % 10 ===0){
-//         gridMap[i] = 'default'
-//         gridMap[i+10] = 'alien'
-//         console.log(gridMap)
-//         cells.forEach((cell, i) => {
-//         cell.classList.add(gridMap[i])
-//         })
-        
-//         moveLeft = false
-//         moveRight = true
-//        } else if (gridMap[i]==='alien'){
-//       gridMap[i] = 'default'
-//       gridMap[i-1]= 'alien'
-//       console.log(gridMap)
-//       cells.forEach((cell, i) => {
-//        cell.classList.add(gridMap[i])
-//       })
+let alienIntervalId
+
+const moveAliens = () => {
+   allCellsArray.map(cell => {
+     if(cell.classList.contains('alien')) {
+      let index = allCellsArray.indexOf(cell)
+      console.log(allCellsArray[index])
+      console.log('index', index)
+      console.log('index+10', index + 10)
+      if(index % 10 === 0){
+        moveDown()
+      }
+    }
+   })
+  //   Array.from(cells).map(cell => {
+    
+  //   if (cell.classList.contains('alien')) {
+  //     let index = Array.from(cells).indexOf(cell)
+  //     console.log('index', index)
+  //     if (index%10===0){
+  //       console.log('index', index)
+  //       // moveDown()
+  //       clearInterval(alienIntervalId)
+  //     } else if (cells[index-1].classList.contains('alien')){
+  //       cells[index-1].classList.remove('alien')
+  //       cells[index].classList.remove('alien')
+  //       cells[index-1].classList.add('alien')
+  //     } else {
+  //     cells[index - 1].classList.add('alien')
+  //     cells[index].classList.remove('alien')
+  //     } 
+  //   } 
+  //   }
+  // ) 
+}
+
+// moveAliens()
+
+const moveDown = () => {
+  allCellsArray.map(cell => {
+    if(cell.classList.contains('alien')) {
+     let index = allCellsArray.indexOf(cell)
+     if(index % 10 === 0){
+     allCellsArray[index + 10].classList.add('alien')
+     allCellsArray[index].classList.remove('alien')
+     }
+  // Array.from(cells).forEach(cell => {
+  //   if (cell.classList.contains('alien')) {
+  //     let index = Array.from(cells).indexOf(cell)
+  //     console.log('index', index)
+  //     let indexOfRowBelow = index += 10
+  //     console.log('indexOfRowBelow', indexOfRowBelow)
+  //     if(cells[indexOfRowBelow].classList.contains('alien')){
+  //     cells[indexOfRowBelow].classList.remove('alien')
+  //     cells[index].classList.remove('alien')
+  //     cells[indexOfRowBelow].classList.add('alien')
+  //     return
+  //   } else if (!cells[indexOfRowBelow].classList.contains('alien')){
+  //     cells[index].classList.remove('alien')
+  //     cells[indexOfRowBelow].classList.add('alien')
+  //     return
+  //   }
+      // clearInterval(alienIntervalId)
       
-//     }
-//     } 
-//    } 
-//    if(moveRight === true) {
-//    if(gridMap[i]==='alien' && i % 9 ===0){
-//     gridMap[i] = 'default'
-//     gridMap[i+10]= 'alien'
-//     console.log(gridMap)
-//     cells.forEach((cell, i) => {
-//     cell.classList.add(gridMap[i])
-//     })
-//     moveLeft = true
-//     moveRight = false
-//    } else if (gridMap[i]==='alien'){
-//   gridMap[i] = 'default'
-//   gridMap[i+1]= 'alien'
-//   console.log(gridMap)
-//   cells.forEach((cell, i) => {
-//     cell.classList.add(gridMap[i])
-//    })
-  
-//   }
-// }
-  // },3000)
+    }
+  })
+}
 
-  // }  
+alienIntervalId = setTimeout(moveAliens, 3000)
+
+// function findAliens(arr, val) {
+//   let indexes = [];
+//   let i=-1;
+//   while((i=arr.indexOf(val, i+1)) != -1) {
+//     indexes.push(i)
+//   }
+//   return indexes
+// }
+
+// let alienIndexes = findAliens(allCellsArray, 'alien')
+// console.log('alienIndexes', alienIndexes)
+
+// console.log('cells[alienIndexes]', cells[alienIndexes])
+
+// const newIndexes = (array, x) => {
+//   return array.map((index) => index+x)
+// }
+// console.log('newIndexes(alienIndexes)', newIndexes(alienIndexes, -1))
