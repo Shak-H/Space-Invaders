@@ -1,19 +1,19 @@
-
 // variable needed to start/reset game
 let hasGameStarted = false
 let movingRight = true
+let width = 10
 let direction = 1
 let alienId
 let results = document.querySelector('#score')
 let lives = document.querySelector('#lives')
+let aliensRemoved = []
 
 
 // have random amount of aliens appear on first 3 rows
 let cells = document.querySelectorAll('.grid div')
-// console.log('cells', cells)
+
 
 const allCellsArray = Array.from(cells)
-// console.log("allCellsArray", allCellsArray)
 
 // const startingRowsOfNodes = Array.from(cells).slice(0, 29)
 // console.log('startingRowOfNodes.length', startingRowsOfNodes.length)
@@ -47,21 +47,21 @@ const allCellsArray = Array.from(cells)
 //     allCellsArray[i].classList.add('alien')
 //   }
 //   }
-const aliens = [0,1,2,3,4,5,6,7,10,11,12,13,14,15,16,17,20,21,22,23,24,25,26,27]
+const aliens = [
+  0,1,2,3,4,5,6,7,
+  10,11,12,13,14,15,16,17,
+  20,21,22,23,24,25,26,27
+]
 
 const addAliens = () => {
   for(let i = 0; i < aliens.length; i++) {
-    
-    // console.log('allCellsArray', allCellsArray)
+    if(!aliensRemoved.includes(i))
     allCellsArray[aliens[i]].classList.add('alien')
   }
 }
 
-
 const removeAliens = () => {
   for (let i = 0; i < aliens.length; i++) {
-    // console.log('alien[i]', aliens[i])
-    // console.log('allCellsArray', allCellsArray)
     allCellsArray[aliens[i]].classList.remove('alien')
   }
 }
@@ -72,22 +72,9 @@ const addPlayer = () => {
   playerStartingCell.classList.add('player')
 }
 
-
-// const bottomRow = gridMap.slice(90, 99)
-// console.log('bottowRow', bottomRow)
-
-// const randomIndex = 
-// console.log('randomIndex', randomIndex)
-
-
-// console.log('playerStartingCell', playerStartingCell)
-
-
-
 //move player
 
 let playerIndex = Array.from(cells).indexOf(playerStartingCell)
-// console.log('playerIndex', playerIndex)
 
 const handleArrowLeft = () => {
     const newIndex = playerIndex -1
@@ -123,74 +110,6 @@ document.addEventListener('keydown', function (event) {
 })
 
 // move aliens
-
-// const moveAliens = () => {
-  
-//   allCellsArray.map(cell => {
-    
-//     if (cell.classList.contains('alien')) {
-//       let index = allCellsArray.indexOf(cell)
-//       console.log('index', index)
-//       if (index%10===0){
-//         console.log('index', index)
-//         // moveDown()
-//         clearInterval(alienIntervalId)
-//       } else if (cells[index-1].classList.contains('alien')){
-//         cells[index-1].classList.remove('alien')
-//         cells[index].classList.remove('alien')
-//         cells[index-1].classList.add('alien')
-//       } else {
-//       cells[index - 1].classList.add('alien')
-//       cells[index].classList.remove('alien')
-//       } 
-//     } 
-//     }
-//   ) 
-// }
-
-// const moveDown = () => {
-//   console.log('allCellsArray', allCellsArray)
-//   console.log('all cells array reversed', allCellsArray.slice('').reverse())
-//   const reversedAllCellsArray = allCellsArray.slice('').reverse()
-//   reversedAllCellsArray.map(cell => {
-//     if(cell.classList.contains('alien')) {
-//      let index = allCellsArray.indexOf(cell)
-//      if(index % 10 === 0){
-//        allCellsArray[index].classList.remove('alien')
-//        allCellsArray[index + 10].classList.add('alien')
-//      }
-//     }
-//   
-//  console.log('move down triggered')
-    
-     
-     
-    //  }
-  // Array.from(cells).forEach(cell => {
-  //   if (cell.classList.contains('alien')) {
-  //     let index = Array.from(cells).indexOf(cell)
-  //     console.log('index', index)
-  //     let indexOfRowBelow = index += 10
-  //     console.log('indexOfRowBelow', indexOfRowBelow)
-  //     if(cells[indexOfRowBelow].classList.contains('alien')){
-  //     cells[indexOfRowBelow].classList.remove('alien')
-  //     cells[index].classList.remove('alien')
-  //     cells[indexOfRowBelow].classList.add('alien')
-  //     return
-  //   } else if (!cells[indexOfRowBelow].classList.contains('alien')){
-  //     cells[index].classList.remove('alien')
-  //     cells[indexOfRowBelow].classList.add('alien')
-  //     return
-  //   }
-      // clearInterval(alienIntervalId)
-      
-//     }
-//   )
-// }
-
-// alienIntervalId = setTimeout(moveAliens, 3000)
-
-
 
 // const aliensLeft = () => {
 //   Array.from(cells).some((cell) => {
@@ -229,21 +148,20 @@ const moveAliens = () => {
   
   aliensId = setInterval(() => {
     
-  
   const leftEdge = aliens[0] % 10 === 0
   const rightEdge = aliens[aliens.length-1] % 9 === 0
   removeAliens()
 
   if (rightEdge && movingRight) {
     for (let i = 0; i < aliens.length; i++){
-      aliens[i] += 11
+      aliens[i] += width +1
       direction = -1
       movingRight = false
     }
   }
   if (leftEdge && !movingRight) {
     for (let i = 0; i < aliens.length; i++) {
-      aliens[i] =+ 9
+      aliens[i] += width -1
       direction = 1
       movingRight = true
     }
@@ -259,24 +177,18 @@ const moveAliens = () => {
 
  }
 
-
-
 //initalise bullet
 
 const addBullet = () => {
-  // console.log('cells[playerIndex-10]', cells[playerIndex-10])
   return cells[playerIndex-10].classList.add('bullet')
 }
 
 //fire bullet
 
-// const bulletIndex = gridMap[playerIndex-10]
 let fireBulletId
 const fireBullet = () => {
   fireBulletId = setInterval(() => {
-  // console.log('bullet')
   Array.from(cells).map(cell => {
-    // console.log('cell', cell)
     if (cell.classList.contains('bullet')) {
       let index = Array.from(cells).indexOf(cell)
       console.log('index', index)
@@ -286,6 +198,9 @@ const fireBullet = () => {
       } else if (cells[index-10].classList.contains('alien')){
         cells[index - 10].classList.remove('alien')
         cells[index].classList.remove('bullet')
+        const alienRemoved = alien.indexOf(index-10)
+        aliensRemoved.push(alienRemoved)
+        score.innerHTML += 50
         clearInterval(fireBulletId)
       } else {
       cells[index - 10].classList.add('bullet')
@@ -294,7 +209,7 @@ const fireBullet = () => {
     } 
     }
   ) 
-}, 500) 
+}, 200) 
 }
 
 document.addEventListener('keydown', function (event) {
@@ -313,8 +228,6 @@ const start = document.querySelector('#start')
 
 const startGame = () => {
   addAliens()
-  // console.log('allCellsArray', allCellsArray)
-  // console.log('cells', cells)
   addPlayer()
   moveAliens()
   
