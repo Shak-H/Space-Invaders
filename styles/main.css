@@ -60,7 +60,27 @@ h1 {
   align-content: center;
 }
 
-.lives {
+.lives:first-of-type {
+  border: 2px solid black;
+  height: 80%;
+  width: 32%;
+  background: url('./images/heart.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.lives:nth-of-type(2) {
+  border: 2px solid black;
+  height: 80%;
+  width: 32%;
+  background: url('./images/heart.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.lives:nth-of-type(3) {
   border: 2px solid black;
   height: 80%;
   width: 32%;
