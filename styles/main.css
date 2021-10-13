@@ -23,7 +23,26 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 60%;
+  width: 80%;
+}
+
+.results-board {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  
+}
+
+.results-board p {
+  margin-bottom: 0;
+  margin-top: 1px;
+}
+
+#game-status {
+  font-size: 48px;
+  height: 100%;
+  align-self: center;
+  justify-self: center;
 }
 
 .score-board {

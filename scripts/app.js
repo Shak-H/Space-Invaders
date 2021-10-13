@@ -8,6 +8,7 @@ let results = document.querySelector('#score')
 let lives = document.querySelector('#lives')
 let aliensRemoved = []
 let score = 0
+let result = document.querySelector('#game-status')
 
 
 // have random amount of aliens appear on first 3 rows
@@ -174,9 +175,19 @@ const moveAliens = () => {
 
   addAliens()
 
-}, 2000)
+  if (aliensRemoved.length === aliens.length) {
+    result.innerHTML = 'WINNER'
+    clearInterval(aliensId)
+  }
 
- }
+  // if(allCellsArray[playerIndex].classList.contains('player', 'alien')){
+  //   result.innerHTML = 'GAME OVER'
+  //   clearInterval(aliensId)
+  // }
+
+}, 1000)
+
+}
 
 //initalise bullet
 
