@@ -129,3 +129,7 @@ h1 {
   background-size: contain;
   background-position: center;
 }
+
+.explosion {
+  background: red;
+}
