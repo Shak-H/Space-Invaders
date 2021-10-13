@@ -1,5 +1,5 @@
 // variable needed to start/reset game
-let hasGameStarted = false
+
 let movingRight = true
 let width = 10
 let direction = 1
@@ -190,7 +190,7 @@ const moveAliens = () => {
   }
 
   
-}, 1000)
+}, 600)
 
 }
 
@@ -252,3 +252,31 @@ const startGame = () => {
 }
 
 start.addEventListener('click', startGame)
+
+//reset game function 
+
+const clearPlayer = () => {
+  allCellsArray[playerIndex].classList.remove('player')
+}
+
+const clearAliens = () => {
+  for(let i =0; i < allCellsArray.length; i++){
+    if(allCellsArray[i].classList.contains('alien'))
+    allCellsArray[i].classList.remove('alien')
+    clearInterval(aliensId)
+  }
+}
+
+const clearFunction = () => {
+  clearPlayer()
+  clearAliens()
+}
+
+
+const reset = document.querySelector('#reset')
+
+const resetGame = () => {
+  clearFunction()
+}
+
+reset.addEventListener('click', resetGame)
