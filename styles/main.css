@@ -137,7 +137,7 @@ h1 {
 }
 
 .player {
-  background: url('./spaceship.jpg');
+  background: url('./images/spaceship.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

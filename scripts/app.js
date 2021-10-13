@@ -50,9 +50,9 @@ const allCellsArray = Array.from(cells)
 //   }
 //   }
 const aliens = [
-  0,1,2,3,4,5,6,7,
-  10,11,12,13,14,15,16,17,
-  20,21,22,23,24,25,26,27
+  0,1,2,3,4,5,6,
+  10,11,12,13,14,15,16,
+  20,21,22,23,24,25,26,
 ]
 
 const addAliens = () => {
@@ -77,6 +77,7 @@ const addPlayer = () => {
 //move player
 
 let playerIndex = Array.from(cells).indexOf(playerStartingCell)
+console.log('playerIndex', playerIndex)
 
 const handleArrowLeft = () => {
     const newIndex = playerIndex -1
@@ -175,16 +176,20 @@ const moveAliens = () => {
 
   addAliens()
 
+  const bottomRow = allCellsArray.slice(90, 99)
+  for(let i = 0; i < bottomRow.length; i++)
+  if(bottomRow[i].classList.contains('alien')){
+    result.innerHTML = 'GAME OVER'
+    clearInterval(aliensId)
+  }
+
+
   if (aliensRemoved.length === aliens.length) {
     result.innerHTML = 'WINNER'
     clearInterval(aliensId)
   }
 
-  // if(allCellsArray[playerIndex].classList.contains('player', 'alien')){
-  //   result.innerHTML = 'GAME OVER'
-  //   clearInterval(aliensId)
-  // }
-
+  
 }, 1000)
 
 }
@@ -222,7 +227,7 @@ const fireBullet = () => {
     } 
     }
   ) 
-}, 200) 
+}, 300) 
 }
 
 document.addEventListener('keydown', function (event) {
