@@ -1,15 +1,16 @@
 // variable needed to start/reset game
 
 let movingRight = true
-let width = 10
+const width = 10
 let direction = 1
 let alienId
-let results = document.querySelector('#score')
-let lives = document.querySelector('#lives')
+const score = document.querySelector('#score')
+const lives = document.querySelector('#lives')
 let aliensRemoved = []
-let score = 0
-let result = document.querySelector('#game-status')
-
+let currentScore = 0
+const result = document.querySelector('#game-status')
+const laserAudio = document.querySelector('#laser')
+const startGameAudio = document.querySelector('#startgame')
 
 // have random amount of aliens appear on first 3 rows
 let cells = document.querySelectorAll('.grid div')
@@ -190,7 +191,7 @@ const moveAliens = () => {
   }
 
   
-}, 600)
+}, 900)
 
 }
 
@@ -227,8 +228,13 @@ const fireBullet = () => {
     } 
     }
   ) 
-}, 300) 
+}, 600) 
 }
+
+// const playLaserAudio = () => {
+//  laserAudio.play()
+    
+// }
 
 document.addEventListener('keydown', function (event) {
   switch (event.key) {
@@ -236,19 +242,28 @@ document.addEventListener('keydown', function (event) {
       console.log('pressed f key')
       addBullet()
       fireBullet()
+      setTimeout(function() {
+        laserAudio.play()
+        setTimeout(function(){
+          laserAudio.pause()
+          laserAudio.currentTime = 0
+        }, 500)
+      }, 50) 
       break
-  }
+    }
 })
+
 
 //start game function
 
 const start = document.querySelector('#start')
 
 const startGame = () => {
+  
   addAliens()
   addPlayer()
   moveAliens()
-  
+  startGameAudio.play()
 }
 
 start.addEventListener('click', startGame)

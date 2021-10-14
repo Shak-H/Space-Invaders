@@ -5,6 +5,8 @@
 body {
   height: 100vh;
   margin: 0;
+  background: url('./images/star-wars-backgrounds-25.jpg');
+  color: #F9D71C;
 }
 
 main {
@@ -83,7 +85,7 @@ h1 {
   border: 2px solid black;
   height: 80%;
   width: 32%;
-  background: url('./images/heart.png');
+  background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -93,7 +95,7 @@ h1 {
   border: 2px solid black;
   height: 80%;
   width: 32%;
-  background: url('./images/heart.png');
+  background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -103,7 +105,7 @@ h1 {
   border: 2px solid black;
   height: 80%;
   width: 32%;
-  background: url('./images/heart.png');
+  background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -115,35 +117,62 @@ h1 {
   grid-template-rows: repeat(10, 1fr);
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
-  background: black;
+  /* background: black; */
   height: 800px;
   width: 600px;
+  border: black;
 }
 
 .grid div {
-  border: 1px solid;
+  /* border: 1px solid; */
 }
 
-.reset {
+.buttons {
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
+#reset {
+  border: 1px solid #F9D71C;
+  background: rgba(255, 255, 255, 0);
+  color: #F9D71C;
+}
+
+#reset:hover {
+  border: 1px solid black;
+  background: #F9D71C;
+  color: black;
+  box-shadow: 10px 5px 5px #F9D71C;
+}
+
+#start {
+  border: 1px solid #F9D71C;
+  background: rgba(255, 255, 255, 0);
+  color: #F9D71C;
+}
+
+#start:hover {
+  border: 1px solid black;
+  background: #F9D71C;
+  color: black;
+  box-shadow: 10px 5px 5px #F9D71C;
+}
 .alien {
-  background: url('./images/alien.jpg');
+  background: url('./images/TIE-fighter.WEBP');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .player {
-  background: url('./images/spaceship.jpg');
+  background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
 }
 
 .bullet {
-  background: url('./images/missile2.jpg');
+  background: url('./images/laser.jpg');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
