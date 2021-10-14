@@ -34,56 +34,63 @@ let cells = document.querySelectorAll('.grid div')
 
 const allCellsArray = Array.from(cells)
 
-// const startingRowsOfNodes = Array.from(cells).slice(0, 29)
+const startingRowsOfNodes = Array.from(cells).slice(0, 29)
 // console.log('startingRowOfNodes.length', startingRowsOfNodes.length)
-// const startingRows = allCellsArray.slice(0, 29)
+const startingRows = allCellsArray.slice(0, 29)
 // console.log('startingRows', startingRows)
-// const remainingRowsOfNodes = Array.from(cells).slice(28,99)
+const remainingRowsOfNodes = Array.from(cells).slice(28,99)
 
-// const fullGridOfNodesWithRandomAlienClasses = startingRowsOfNodes.concat(remainingRowsOfNodes)
+const fullGridOfNodesWithRandomAlienClasses = startingRowsOfNodes.concat(remainingRowsOfNodes)
 // console.log('fullGridOfNodesWithRandomAlienClasses', fullGridOfNodesWithRandomAlienClasses)
 
-// const remainingRows = allCellsArray.slice(28, 99)
+const remainingRows = allCellsArray.slice(28, 99)
 // console.log('remainingRows', remainingRows)
 
-// const randomisedAliens = () => {
-//   if (Math.random() > 0.5){
-//     return 'alien'
-//   }
-// }
+const randomisedAliens = () => {
+  if (Math.random() > 0.5){
+    return 'alien'
+  }
+}
 
 // console.log('randomisedAliens', randomisedAliens())
 
-// const firstAliens = startingRows.map(randomisedAliens)
+let firstAliens = startingRows.map(randomisedAliens)
 // console.log('firstAliens', firstAliens)
 
-// let gridMap = firstAliens.concat(remainingRows)
+let gridMap = firstAliens.concat(remainingRows)
 // console.log('gridMap', gridMap)
 
-// const addAliens = () => {
-//   for(let i=0; i<gridMap.length; i++) {
-//     if(gridMap[i]==='alien')
-//     allCellsArray[i].classList.add('alien')
-//   }
-//   }
-const aliens = [
-  0,1,2,3,4,5,6,
-  10,11,12,13,14,15,16,
-  20,21,22,23,24,25,26,
-]
-
 const addAliens = () => {
-  for(let i = 0; i < aliens.length; i++) {
+  for(let i=0; i<gridMap.length; i++) {
+    if(gridMap[i]==='alien')
+    allCellsArray[i].classList.add('alien')
+  }
+  }
+
+  const removeAliens = () => {
+    for (let i = 0; i < alienIndexes.length; i++) {
+      allCellsArray[alienIndexes[i]].classList.remove('alien')
+    }
+  }
+
+// const aliens = [
+//   0,1,2,3,4,5,6,
+//   10,11,12,13,14,15,16,
+//   20,21,22,23,24,25,26,
+// ]
+
+const addNextAliens = () => {
+  for(let i = 0; i < alienIndexes.length; i++) {
     if(!aliensRemoved.includes(i))
-    allCellsArray[aliens[i]].classList.add('alien')
+    allCellsArray[alienIndexes[i]].classList.add('alien')
   }
 }
 
-const removeAliens = () => {
-  for (let i = 0; i < aliens.length; i++) {
-    allCellsArray[aliens[i]].classList.remove('alien')
-  }
-}
+// const removeAliens = () => {
+//   for (let i = 0; i < aliens.length; i++) {
+//     allCellsArray[aliens[i]].classList.remove('alien')
+//   }
+// }
 
 //add player to random cell in bottom row
 const playerStartingCell = cells[(Math.floor(Math.random()*10))+90]
@@ -131,24 +138,16 @@ document.addEventListener('keydown', function (event) {
 
 // move aliens
 
-// const aliensLeft = () => {
-//   Array.from(cells).some((cell) => {
-//       if(cell.classList.contains('aliens')){
-//         return true
-//       }
-//   })
-// }
+function findAliens(arr, val) {
+  let indexes = [];
+  let i=-1;
+  while((i=arr.indexOf(val, i+1)) != -1) {
+    indexes.push(i)
+  }
+  return indexes
+}
 
-// function findAliens(arr, val) {
-//   let indexes = [];
-//   let i=-1;
-//   while((i=arr.indexOf(val, i+1)) != -1) {
-//     indexes.push(i)
-//   }
-//   return indexes
-// }
-
-// let alienIndexes = findAliens(gridMap, 'alien')
+let alienIndexes = findAliens(gridMap, 'alien')
 // console.log('alienIndexes', alienIndexes)
 
 // console.log('cells[alienIndexes]', allCellsArray[alienIndexes])
@@ -170,33 +169,38 @@ const moveAliens = () => {
   
   aliensId = setInterval(() => {
    
-  const leftEdge = aliens[0] % 10 === 0
-  const rightEdge = aliens[aliens.length - 1] % 10 === 9
+  // const atLeftEdge = aliens[0] % 10 === 0
+  const atLeftEdge = (alienIndexes) => {
+    alienIndexes % 10 === 0
+  }
+  // const atRightEdge = aliens[aliens.length - 1] % 10 === 9
+  const atRightEdge = (alienIndexes) => {
+    alienIndexes % 10 === 9
+  }
   const moveDown = () => {
-    for(let i = 0; i < aliens.length; i++) {
-      aliens[i] += width
+    for(let i = 0; i < alienIndexes.length; i++) {
+      alienIndexes[i] += width
     }
   }
   removeAliens()
 
-  if (rightEdge && movingRight) {
-    
+  if (alienIndexes.some(atRightEdge) && movingRight) {
       moveDown()
       direction = -1
       movingRight = false
     
-  } else if (leftEdge && !movingRight) {
+  } else if (alienIndexes.some(atLeftEdge) && !movingRight) {
       moveDown()
       direction = 1
       movingRight = true
     
   } else {
-    for(let i = 0; i < aliens.length; i++) {
-      aliens[i] += direction
+    for(let i = 0; i < alienIndexes.length; i++) {
+      alienIndexes[i] += direction
     }
   }
 
-  addAliens()
+  addNextAliens()
 
   const bottomRow = allCellsArray.slice(90, 99)
   for(let i = 0; i < bottomRow.length; i++)
@@ -208,15 +212,11 @@ const moveAliens = () => {
     clearInterval(aliensId)
   }
 
-
-  if (aliensRemoved.length === aliens.length) {
+  if (aliensRemoved.length === alienIndexes.length) {
     result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
     clearInterval(aliensId)
   }
-
-  
 }, 2000)
-
 }
 
 //initalise bullet
@@ -240,7 +240,7 @@ const fireBullet = () => {
       } else if (cells[index-10].classList.contains('alien')){
         cells[index - 10].classList.remove('alien')
         cells[index].classList.remove('bullet')
-        const alienRemoved = aliens.indexOf(index-10)
+        const alienRemoved = alienIndexes.indexOf(index-10)
         aliensRemoved.push(alienRemoved)
         currentScore += 50
         score.innerHTML = currentScore
@@ -300,6 +300,11 @@ const clearAliens = () => {
   
 } 
 
+const resetAliens = () => {
+  firstAliens = startingRows.map(randomisedAliens)
+  gridMap = firstAliens.concat(remainingRows)
+}
+
 const resetLives = () => {
     firstLife.style.background = 'url(./images/mil-falcon.JPG)'
     secondLife.style.background = 'url(./images/mil-falcon.JPG)'
@@ -316,6 +321,7 @@ const clearFunction = () => {
   clearPlayer()
   clearAliens()
   clearScore()
+  resetAliens()
 }
 
 
