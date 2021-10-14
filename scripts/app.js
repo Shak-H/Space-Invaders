@@ -162,38 +162,38 @@ document.addEventListener('keydown', function (event) {
 //   return array.map((index) => index+x)
 // }
 // console.log('newIndexes(alienIndexes)', newIndexes(alienIndexes, -1))
-const moveDown = () => {
+// const moveDown = () => {
 
-}
+// }
 
 const moveAliens = () => {
   
   aliensId = setInterval(() => {
-  const leftEdge = (aliens) => {
-    aliens % 10 === 0
-  }
-  const rightEdge = (aliens) => {
-    aliens[aliens.length-1] % 10 === 9
+   
+  const leftEdge = aliens[0] % 10 === 0
+  const rightEdge = aliens[aliens.length - 1] % 10 === 9
+  const moveDown = () => {
+    for(let i = 0; i < aliens.length; i++) {
+      aliens[i] += width
+    }
   }
   removeAliens()
 
-  if (aliens.some(rightEdge) && movingRight) {
-    for (let i = 0; i < aliens.length; i++){
-      aliens[i] += width 
+  if (rightEdge && movingRight) {
+    
+      moveDown()
       direction = -1
       movingRight = false
-    }
-  }
-  if (aliens.some(leftEdge) && !movingRight) {
-    for (let i = 0; i < aliens.length; i++) {
-      aliens[i] += width 
+    
+  } else if (leftEdge && !movingRight) {
+      moveDown()
       direction = 1
       movingRight = true
+    
+  } else {
+    for(let i = 0; i < aliens.length; i++) {
+      aliens[i] += direction
     }
-  }
-
-  for(let i = 0; i < aliens.length; i++) {
-    aliens[i] += direction
   }
 
   addAliens()
@@ -215,7 +215,7 @@ const moveAliens = () => {
   }
 
   
-}, 500)
+}, 2000)
 
 }
 
@@ -253,7 +253,7 @@ const fireBullet = () => {
     } 
     }
   ) 
-}, 700) 
+}, 600) 
 }
 
 document.addEventListener('keydown', function (event) {

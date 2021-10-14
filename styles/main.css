@@ -82,25 +82,43 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 80%;
+  width: 90%;
   height: 15%;
   
 }
 
 .results-board {
   display: flex;
+  flex-direction: column;
   text-align: center;
   height: 100%;
   width: 20%;
-  justify-content: center;
+  
+  margin: 10px;
    
 }
+
+.choose-player {
+  display: flex;
+  flex-direction: row;
+  height: 32%;
+  width: 100%;
+}
 #game-status {
-  font-size: 48px;
-  height: 100%;
-  position: relative;
-  top: 200px;
+  font-size: 30px;
+  height: 32%;
+  width: 100%;
   margin: 0 auto;
+}
+#instructions {
+  height: 32%;
+  width: 100%;
+  font-size: 34px;
+  margin: 0;
+}
+#key {
+  text-decoration: underline;
+  
 }
 
 .score-board {
@@ -180,7 +198,7 @@ h1 {
   grid-template-rows: repeat(10, 1fr);
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
-  height: 79%;
+  height: 76%;
   width: 85%;
 }
 
@@ -189,26 +207,28 @@ h1 {
   width: 80%;
   height: 5%;
   justify-content: space-evenly;
+  margin-top: 15px;
+  margin-bottom: 10px;
     
 }
 #reset {
-  border: 1px solid #F9D71C;
+  border: 3px solid #F9D71C;
   background: rgba(255, 255, 255, 0);
   color: #F9D71C;
 }
 #reset:hover {
-  border: 1px solid black;
+  border: 3px solid black;
   background: #F9D71C;
   color: black;
   box-shadow: 10px 5px 5px #F9D71C;
 }
 #start {
-  border: 1px solid #F9D71C;
+  border: 3px solid #F9D71C;
   background: rgba(255, 255, 255, 0);
   color: #F9D71C;
 }
 #start:hover {
-  border: 1px solid black;
+  border: 3px solid black;
   background: #F9D71C;
   color: black;
   box-shadow: 10px 5px 5px #F9D71C;
