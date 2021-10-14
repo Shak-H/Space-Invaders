@@ -208,7 +208,8 @@ const moveAliens = () => {
     result.innerHTML = 'The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
     currentLives --
     lives.innerHTML = currentLives
-    firstLife.style.background = 'rgba(255, 255, 255, 0)'
+    firstLife.classList.remove('first-life')
+    firstLife.classList.add('removed-life')
     clearInterval(aliensId)
   }
 
@@ -216,7 +217,7 @@ const moveAliens = () => {
     result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
     clearInterval(aliensId)
   }
-}, 2000)
+}, 900)
 }
 
 //initalise bullet
@@ -243,6 +244,9 @@ const fireBullet = () => {
       } else if (cells[index-10].classList.contains('alien')){
         cells[index - 10].classList.remove('alien')
         cells[index].classList.remove('bullet')
+        cells[index - 10].classList.add('explosion')
+
+        setTimeout(()=>cells[index - 10].classList.remove('explosion'), 800)
         const alienRemoved = alienIndexes.indexOf(index-10)
         aliensRemoved.push(alienRemoved)
         currentScore += 50

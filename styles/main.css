@@ -2,11 +2,16 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('Starjedi.ttf') format('truetype');
+}
 body {
   height: 100vh;
   margin: 0;
   background: url('./images/star-wars-backgrounds-25.jpg');
   color: #F9D71C;
+  font-family: 'MyWebFont', Fallback, sans-serif;
 }
 
 main {
@@ -113,7 +118,7 @@ h1 {
 #instructions {
   height: 32%;
   width: 100%;
-  font-size: 34px;
+  font-size: 22px;
   margin: 0;
 }
 #key {
@@ -164,7 +169,7 @@ h1 {
   justify-content: space-evenly;
  
 }
-#first-life {
+.first-life {
   border: 2px solid black;
   height: 100%;
   width: 32%;
@@ -173,7 +178,7 @@ h1 {
   background-position: center;
   background-size: contain;
 }
-#second-life {
+.second-life {
   border: 2px solid black;
   height: 100%;
   width: 32%;
@@ -182,7 +187,7 @@ h1 {
   background-position: center;
   background-size: contain;
 }
-#third-life {
+.third-life {
   border: 2px solid black;
   height: 100%;
   width: 32%;
@@ -190,6 +195,12 @@ h1 {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+.removed-life {
+  border: 2px solid black;
+  height: 100%;
+  width: 32%;
+  background: rgba(255, 255, 255, 0);
 }
 
 .grid {
@@ -240,18 +251,21 @@ h1 {
   background-size: cover;
   background-position: center;
 }
-.player {
+.player { 
   background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 .bullet {
-  background: url('./images/laser.jpg');
+  background: url('./images/laser.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 .explosion {
-  background: red;
+  background: url('./images/explosion.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  
 }
