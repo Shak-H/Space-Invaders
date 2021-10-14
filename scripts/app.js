@@ -222,6 +222,9 @@ const moveAliens = () => {
 //initalise bullet
 
 const addBullet = () => {
+  if(cells[playerIndex-10].classList.contains('alien')){
+    cells[playerIndex-10].classList.remove('alien')
+  }
   return cells[playerIndex-10].classList.add('bullet')
 }
 
@@ -300,10 +303,10 @@ const clearAliens = () => {
   
 } 
 
-const resetAliens = () => {
-  firstAliens = startingRows.map(randomisedAliens)
-  gridMap = firstAliens.concat(remainingRows)
-}
+// const resetAliens = () => {
+//   firstAliens = startingRows.map(randomisedAliens)
+//   gridMap = firstAliens.concat(remainingRows)
+// }
 
 const resetLives = () => {
     firstLife.style.background = 'url(./images/mil-falcon.JPG)'
@@ -321,7 +324,7 @@ const clearFunction = () => {
   clearPlayer()
   clearAliens()
   clearScore()
-  resetAliens()
+  // resetAliens()
 }
 
 
