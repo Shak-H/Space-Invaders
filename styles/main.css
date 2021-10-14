@@ -33,6 +33,15 @@ h1 {
   border: 1px solid #F9D71C;
   height: 100%;
   width: 20%;
+  padding: 10px;
+}
+#intro-text {
+  height: 100%;
+  font-size: 28px;
+  text-align: justify;
+  text-align-last: center;
+  margin: 0;
+  
 }
 
 .game {
@@ -52,7 +61,8 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 80%;
+  width: 100%;
+  height: 15%;
 }
 
 .results-board {
@@ -78,49 +88,63 @@ h1 {
   display: flex;
   flex-direction: row;
   text-align: center;
+  height: 100%;
+  width: 50%;
+  align-self: center;
 }
 
 .score-board p {
   margin-bottom: 0;
-  margin-top: 1px;
+  margin-top: 0;
+  width: 100%;
+  height: 30%;
+  align-content: center;
+  justify-content: center;
 }
 
 #score {
-  font-size: 48px;
+  font-size: 54px;
+  height: 70%;
+  width: 100%;
 }
 
 .player-lives {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 50%;
+  align-content: center;
+  justify-self: center;
 }
 
 .player-lives p {
-  height: 1em;
   margin: 0;
+  height: 20%;
+  width: 100%;
+  text-align: center;
 }
 
 .current-lives {
   display: flex;
   flex-direction: row;
-  height: 75%;
+  height: 70%;
   justify-content: space-evenly;
-  margin-top: 5%;
-  align-content: center;
+ 
 }
 
 #first-life {
   border: 2px solid black;
-  height: 80%;
+  height: 100%;
   width: 32%;
   background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;s
+  background-size: cover;
 }
 
 #second-life {
   border: 2px solid black;
-  height: 80%;
+  height: 100%;
   width: 32%;
   background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
@@ -130,7 +154,7 @@ h1 {
 
 #third-life {
   border: 2px solid black;
-  height: 80%;
+  height: 100%;
   width: 32%;
   background: url('./images/mil-falcon.JPG');
   background-repeat: no-repeat;
@@ -144,14 +168,18 @@ h1 {
   grid-template-rows: repeat(10, 1fr);
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
-  height: 100%;
+  height: 79%;
   width: 100%;
   border: black;
+  border: 1px solid #F9D71C;
 }
 
 .buttons {
-  margin-top: 1%;
-  margin-bottom: 1%;
+  display: flex;
+  height: 5%;
+  align-self: center;
+  justify-content: center;
+  justify-self: center;
 }
 
 #reset {
