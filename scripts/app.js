@@ -7,6 +7,8 @@ let alienId
 let introId
 const lives = document.querySelector('#lives')
 const firstLife = document.querySelector('#first-life')
+const secondLife = document.querySelector('#second-life')
+const thirdLife = document.querySelector('#third-life')
 let currentLives = 3
 let aliensRemoved = []
 const score = document.querySelector('#score')
@@ -16,6 +18,7 @@ const laserAudio = document.querySelector('#laser')
 const startGameAudio = document.querySelector('#startgame')
 const introSection = document.querySelector('.intro')
 const themeMusic = document.querySelector('#theme-music')
+const explosion = document.querySelector('#explosion')
 
 //play music and scroll text when mouse hovers over intro section
 
@@ -159,26 +162,31 @@ document.addEventListener('keydown', function (event) {
 //   return array.map((index) => index+x)
 // }
 // console.log('newIndexes(alienIndexes)', newIndexes(alienIndexes, -1))
+const moveDown = () => {
 
+}
 
 const moveAliens = () => {
   
   aliensId = setInterval(() => {
-    
-  const leftEdge = aliens[0] % 10 === 0
-  const rightEdge = aliens[aliens.length-1] % 9 === 0
+  const leftEdge = (aliens) => {
+    aliens % 10 === 0
+  }
+  const rightEdge = (aliens) => {
+    aliens[aliens.length-1] % 10 === 9
+  }
   removeAliens()
 
-  if (rightEdge && movingRight) {
+  if (aliens.some(rightEdge) && movingRight) {
     for (let i = 0; i < aliens.length; i++){
-      aliens[i] += width +1
+      aliens[i] += width 
       direction = -1
       movingRight = false
     }
   }
-  if (leftEdge && !movingRight) {
+  if (aliens.some(leftEdge) && !movingRight) {
     for (let i = 0; i < aliens.length; i++) {
-      aliens[i] += width -1
+      aliens[i] += width 
       direction = 1
       movingRight = true
     }
@@ -236,6 +244,7 @@ const fireBullet = () => {
         aliensRemoved.push(alienRemoved)
         currentScore += 50
         score.innerHTML = currentScore
+        explosion.play()
         clearInterval(fireBulletId)
       } else {
       cells[index - 10].classList.add('bullet')
@@ -291,9 +300,22 @@ const clearAliens = () => {
   
 } 
 
+const resetLives = () => {
+    firstLife.style.background = 'url(./images/mil-falcon.JPG)'
+    secondLife.style.background = 'url(./images/mil-falcon.JPG)'
+    thirdLife.style.background = 'url(./images/mil-falcon.JPG)'
+    currentLives = 3
+}
+
+const clearScore = () => {
+  currentScore = 0
+  score.innerHTML = currentScore
+}
+
 const clearFunction = () => {
   clearPlayer()
   clearAliens()
+  clearScore()
 }
 
 
