@@ -4,9 +4,11 @@ let movingRight = true
 const width = 10
 let direction = 1
 let alienId
-const score = document.querySelector('#score')
 const lives = document.querySelector('#lives')
+const firstLife = document.querySelector('#first-life')
+let currentLives = 3
 let aliensRemoved = []
+const score = document.querySelector('#score')
 let currentScore = 0
 const result = document.querySelector('#game-status')
 const laserAudio = document.querySelector('#laser')
@@ -181,6 +183,9 @@ const moveAliens = () => {
   for(let i = 0; i < bottomRow.length; i++)
   if(bottomRow[i].classList.contains('alien')){
     result.innerHTML = 'GAME OVER'
+    currentLives --
+    lives.innerHTML = currentLives
+    firstLife.style.background = 'rgba(255, 255, 255, 0)'
     clearInterval(aliensId)
   }
 
@@ -191,7 +196,7 @@ const moveAliens = () => {
   }
 
   
-}, 900)
+}, 500)
 
 }
 
@@ -218,8 +223,8 @@ const fireBullet = () => {
         cells[index].classList.remove('bullet')
         const alienRemoved = aliens.indexOf(index-10)
         aliensRemoved.push(alienRemoved)
-        score += 50
-        results.innerHTML = score
+        currentScore += 50
+        score.innerHTML = currentScore
         clearInterval(fireBulletId)
       } else {
       cells[index - 10].classList.add('bullet')
@@ -228,7 +233,7 @@ const fireBullet = () => {
     } 
     }
   ) 
-}, 600) 
+}, 700) 
 }
 
 // const playLaserAudio = () => {
@@ -253,16 +258,16 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
-
 //start game function
 
 const start = document.querySelector('#start')
 
 const startGame = () => {
-  
-  addAliens()
   addPlayer()
-  moveAliens()
+  setTimeout(function(){
+    addAliens()
+    moveAliens()
+  },4000)
   startGameAudio.play()
 }
 
@@ -275,12 +280,10 @@ const clearPlayer = () => {
 }
 
 const clearAliens = () => {
-  for(let i =0; i < allCellsArray.length; i++){
-    if(allCellsArray[i].classList.contains('alien'))
-    allCellsArray[i].classList.remove('alien')
+    removeAliens()
     clearInterval(aliensId)
-  }
-}
+  
+} 
 
 const clearFunction = () => {
   clearPlayer()

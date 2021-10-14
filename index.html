@@ -10,19 +10,21 @@
 <body>
   <main>
     <h1>SPACE INVADERS</h1>
+    <div class = "intro-game-results">
+    <div class = "intro">
+
+    </div>
+    <div class = "game">
     <div class="score-board-lives">
-      <div class="results-board">
-        <p id="game-status"></p>
-      </div>
-      <div class="score-board">
+       <div class="score-board">
         <p>Score <br><span id="score">0</span></p>
       </div>
       <div class="player-lives">
         <p>You have <span id="lives">3</span> lives left.</p>
         <div class="current-lives">
-          <div class="lives"></div>
-          <div class="lives"></div>
-          <div class="lives"></div>
+          <div class="lives" id="first-life"></div>
+          <div class="lives" id="second-life"></div>
+          <div class="lives" id="third-life"></div>
         </div>
       </div>
     </div>
@@ -132,8 +134,15 @@
       <button id="reset">Reset Game</button>
       <button id="start">Start Game</button>
     </div>
+  </div>
+    <div class = "results-board">
+      <p id = "game-status"></p>
+    </div>
+  </div>
+    
 </main>
-<audio id="laser" src="styles/sounds/Laser Blasts-SoundBible.com-108608437.wav"></audio>
+<audio id="laser" src="styles/sounds/Laser Blasts.wav"></audio>
+<audio id="startgame" src="styles/sounds/vaderbreathing.wav"></audio>
 <script src="scripts/app.js"></script>
 </body>
 </html>
