@@ -193,7 +193,7 @@ const moveAliens = () => {
   const bottomRow = allCellsArray.slice(90, 99)
   for(let i = 0; i < bottomRow.length; i++)
   if(bottomRow[i].classList.contains('alien')){
-    result.innerHTML = 'GAME OVER'
+    result.innerHTML = 'The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
     currentLives --
     lives.innerHTML = currentLives
     firstLife.style.background = 'rgba(255, 255, 255, 0)'
@@ -202,7 +202,7 @@ const moveAliens = () => {
 
 
   if (aliensRemoved.length === aliens.length) {
-    result.innerHTML = 'WINNER'
+    result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
     clearInterval(aliensId)
   }
 
