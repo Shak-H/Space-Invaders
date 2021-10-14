@@ -4,6 +4,7 @@ let movingRight = true
 const width = 10
 let direction = 1
 let alienId
+let introId
 const lives = document.querySelector('#lives')
 const firstLife = document.querySelector('#first-life')
 let currentLives = 3
@@ -13,6 +14,16 @@ let currentScore = 0
 const result = document.querySelector('#game-status')
 const laserAudio = document.querySelector('#laser')
 const startGameAudio = document.querySelector('#startgame')
+const introSection = document.querySelector('.intro')
+const themeMusic = document.querySelector('#theme-music')
+
+//play music and scroll text when mouse hovers over intro section
+
+const introSectionFunction = () => {
+   themeMusic.play()
+}
+
+document.addEventListener('mousemove', introSectionFunction)
 
 // have random amount of aliens appear on first 3 rows
 let cells = document.querySelectorAll('.grid div')
@@ -235,11 +246,6 @@ const fireBullet = () => {
   ) 
 }, 700) 
 }
-
-// const playLaserAudio = () => {
-//  laserAudio.play()
-    
-// }
 
 document.addEventListener('keydown', function (event) {
   switch (event.key) {
