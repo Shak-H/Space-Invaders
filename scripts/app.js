@@ -1,4 +1,4 @@
-// variable needed to start/reset game
+// starting variables
 
 let movingRight = true
 const width = 10
@@ -20,7 +20,7 @@ const introSection = document.querySelector('.intro')
 const themeMusic = document.querySelector('#theme-music')
 const explosion = document.querySelector('#explosion')
 
-//play music and scroll text when mouse hovers over intro section
+//play music and scroll text when mouse hovers over page
 
 const introSectionFunction = () => {
    themeMusic.play()
@@ -31,20 +31,12 @@ document.addEventListener('mousemove', introSectionFunction)
 // have random amount of aliens appear on first 3 rows
 let cells = document.querySelectorAll('.grid div')
 
-
 const allCellsArray = Array.from(cells)
-
 const startingRowsOfNodes = Array.from(cells).slice(0, 29)
-// console.log('startingRowOfNodes.length', startingRowsOfNodes.length)
 const startingRows = allCellsArray.slice(0, 29)
-// console.log('startingRows', startingRows)
 const remainingRowsOfNodes = Array.from(cells).slice(28,99)
-
 const fullGridOfNodesWithRandomAlienClasses = startingRowsOfNodes.concat(remainingRowsOfNodes)
-// console.log('fullGridOfNodesWithRandomAlienClasses', fullGridOfNodesWithRandomAlienClasses)
-
 const remainingRows = allCellsArray.slice(28, 99)
-// console.log('remainingRows', remainingRows)
 
 const randomisedAliens = () => {
   if (Math.random() > 0.5){
@@ -52,13 +44,8 @@ const randomisedAliens = () => {
   }
 }
 
-// console.log('randomisedAliens', randomisedAliens())
-
 let firstAliens = startingRows.map(randomisedAliens)
-// console.log('firstAliens', firstAliens)
-
 let gridMap = firstAliens.concat(remainingRows)
-// console.log('gridMap', gridMap)
 
 const addAliens = () => {
   for(let i=0; i<gridMap.length; i++) {
@@ -148,9 +135,6 @@ function findAliens(arr, val) {
 }
 
 let alienIndexes = findAliens(gridMap, 'alien')
-// console.log('alienIndexes', alienIndexes)
-
-// console.log('cells[alienIndexes]', allCellsArray[alienIndexes])
 
 // const addNextAliens = () => {
 //   for(let i=0; i<aliens.length; i++) {
@@ -303,6 +287,7 @@ const clearPlayer = () => {
 
 const clearAliens = () => {
     removeAliens()
+    aliensRemoved = []
     clearInterval(aliensId)
   
 } 
