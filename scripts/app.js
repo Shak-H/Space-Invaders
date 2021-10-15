@@ -354,7 +354,8 @@ const clearFunction = () => {
 }
 
 const resetGame = () => {
-  clearFunction()
+  // clearFunction()
+  document.location.href=('')
 }
 
 reset.addEventListener('click', resetGame)
