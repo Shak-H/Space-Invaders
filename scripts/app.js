@@ -3,16 +3,18 @@ let cells = document.querySelectorAll('.grid div')
 let movingRight = true
 const width = 10
 let direction = 1
+
+let currentLives = 3
+let currentScore = 0
+let aliensRemoved = []
 let alienId
 let introId
+
 const lives = document.querySelector('#lives')
 const firstLife = document.querySelector('.first-life')
 const secondLife = document.querySelector('.second-life')
 const thirdLife = document.querySelector('.third-life')
-let currentLives = 3
-let aliensRemoved = []
 const score = document.querySelector('#score')
-let currentScore = 0
 const result = document.querySelector('#game-status')
 const laserAudio = document.querySelector('#laser')
 const startGameAudio = document.querySelector('#startgame')
@@ -24,12 +26,15 @@ const imperialMarch = document.querySelector('#imperial-march')
 const rebelSong = document.querySelector('#rebel-song')
 const start = document.querySelector('#start')
 const reset = document.querySelector('#reset')
-let levelTwo = false
+
+let level = 1
+let movementSpeed = 1000
 
 //play music and scroll text when mouse hovers over page
 
 const introSectionFunction = () => {
    themeMusic.play()
+   themeMusic.volume = 0.2
 }
 
 document.addEventListener('mousemove', introSectionFunction)
@@ -46,6 +51,21 @@ let randomisedAliens = () => {
     return 'alien'
   }
 }
+
+// let randomisedAliensIndexes = (startPercentage, cells) => {
+//   if(Math.random()>startPercentage) {
+//     Math.round(Math.random()*cells)
+//     console.log('Math.round(Math.random*29)', Math.round(Math.random()*29))
+//   }
+// }
+// randomisedAliensIndexes(0.5, 29)
+// console.log(randomisedAliensIndexes(0.5, 29))
+// let alienIndexes = Array.from(randomisedAliensIndexes(0.5, 29))
+// console.log(alienIndexes)
+// const addAliens = (alienIndexes) => {
+  
+//   alienIndexes.forEach((alien) => allCellsArray[alien].classList.add('alien'))
+// }
 
 let firstAliens = startingRows.map(randomisedAliens)
 let gridMap = firstAliens.concat(remainingRows)
@@ -77,11 +97,11 @@ const addAliens = () => {
     }
   }
 
-// const aliens = [
-//   0,1,2,3,4,5,6,
-//   10,11,12,13,14,15,16,
-//   20,21,22,23,24,25,26,
-// ]
+const aliens = [
+  0,1,2,3,4,5,6,
+  10,11,12,13,14,15,16,
+  20,21,22,23,24,25,26,
+]
 
 const addNextAliens = () => {
   for(let i = 0; i < alienIndexes.length; i++) {
@@ -168,7 +188,7 @@ let alienIndexes = findAliens(gridMap, 'alien')
 
 const moveAliens = () => {
   
-  aliensId = setInterval(() => {
+  alienId = setInterval((movementSpeed) => {
    
   const atLeftEdge = (alienIndexes) => {
     alienIndexes % 10 === 0
@@ -200,13 +220,15 @@ const moveAliens = () => {
   }
 
   addNextAliens()
+ }, movementSpeed)
 
   const bottomRow = allCellsArray.slice(90, 99)
   for(let i = 0; i < bottomRow.length; i++)
   if(bottomRow[i].classList.contains('alien')){
+    // imperialMarch.play()
     result.innerHTML = 'YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
     currentLives --
-    clearInterval(aliensId)
+    clearInterval(alienId)
     lives.innerHTML = currentLives
     if(firstLife.classList.contains('first-life')) {
       firstLife.classList.remove('first-life')
@@ -222,14 +244,23 @@ const moveAliens = () => {
   }
 
   if (aliensRemoved.length === alienIndexes.length) {
-    rebelSong.play()
+    // rebelSong.play()
     result.innerHTML = 'WINNER!!! .... Well done, you have the destroyed the Galactic fleet. May the force be with you!'
-    clearInterval(aliensId)
-    levelTwo = true
+    level ++
+    newEmperialWave()
   }
-}, 900)
+
 }
 
+const newEmperialWave = () => {
+  clearInterval(alienId)
+  
+  result.innerHTML = `Level ${level}`
+  movementSpeed *= 0.9
+  alienIndexes = aliens
+  addNextAliens()
+  moveAliens()
+}
 //initalise bullet
 
 const addBullet = () => {
@@ -366,86 +397,3 @@ const resetGame = () => {
 reset.addEventListener('click', resetGame)
 start.addEventListener('click', startGame)
 
-//Level Two 
-
-// if (levelTwo = true) {
-
-//  //add player to random cell in bottom row
-//  playerStartingCell = cells[(Math.floor(Math.random()*10))+90]
- 
-//  addPlayer()
-
-//  //move player
-  
-//  playerIndex = Array.from(cells).indexOf(playerStartingCell)
- 
-//  //initalise Aliens
-
-//   allCellsArray = Array.from(cells)
-//   startingRows = allCellsArray.slice(0, 29)
-//   remainingRows = allCellsArray.slice(28, 99)
-  
-//   firstAliens = startingRows.map(randomisedAliens)
-//   gridMap = firstAliens.concat(remainingRows)
-  
-//   addAliens()
-    
-//   // move aliens
-  
-//   let alienIndexes = findAliens(gridMap, 'alien')
-  
-//   const moveAliens = () => {
-    
-//     aliensId = setInterval(() => {
-     
-//     const atLeftEdge = (alienIndexes) => {
-//       alienIndexes % 10 === 0
-//     }
-//     const atRightEdge = (alienIndexes) => {
-//       alienIndexes % 10 === 9
-//     }
-//     const moveDown = () => {
-//       for(let i = 0; i < alienIndexes.length; i++) {
-//         alienIndexes[i] += width
-//       }
-//     }
-//     removeAliens()
-  
-//     if (alienIndexes.some(atRightEdge) && movingRight) {
-//         moveDown()
-//         direction = -1
-//         movingRight = false
-      
-//     } else if (alienIndexes.some(atLeftEdge) && !movingRight) {
-//         moveDown()
-//         direction = 1
-//         movingRight = true
-      
-//     } else {
-//       for(let i = 0; i < alienIndexes.length; i++) {
-//         alienIndexes[i] += direction
-//       }
-//     }
-  
-//     addNextAliens()
-  
-//     const bottomRow = allCellsArray.slice(90, 99)
-//     for(let i = 0; i < bottomRow.length; i++)
-//     if(bottomRow[i].classList.contains('alien')){
-//       result.innerHTML = 'The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
-//       currentLives --
-//       clearInterval(aliensId)
-//       lives.innerHTML = currentLives
-//       firstLife.classList.remove('first-life')
-//       firstLife.classList.add('removed-life')
-//     }
-  
-//     if (aliensRemoved.length === alienIndexes.length) {
-//       result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
-//       clearInterval(aliensId)
-//     }
-//   }, 700)
-//   }
-  
-//   moveAliens()
-  
