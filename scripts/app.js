@@ -1,14 +1,14 @@
 // starting variables
-
+let cells = document.querySelectorAll('.grid div')
 let movingRight = true
 const width = 10
 let direction = 1
 let alienId
 let introId
 const lives = document.querySelector('#lives')
-const firstLife = document.querySelector('#first-life')
-const secondLife = document.querySelector('#second-life')
-const thirdLife = document.querySelector('#third-life')
+const firstLife = document.querySelector('.first-life')
+const secondLife = document.querySelector('.second-life')
+const thirdLife = document.querySelector('.third-life')
 let currentLives = 3
 let aliensRemoved = []
 const score = document.querySelector('#score')
@@ -19,6 +19,9 @@ const startGameAudio = document.querySelector('#startgame')
 const introSection = document.querySelector('.intro')
 const themeMusic = document.querySelector('#theme-music')
 const explosion = document.querySelector('#explosion')
+const start = document.querySelector('#start')
+const reset = document.querySelector('#reset')
+let levelTwo = false
 
 //play music and scroll text when mouse hovers over page
 
@@ -29,16 +32,13 @@ const introSectionFunction = () => {
 document.addEventListener('mousemove', introSectionFunction)
 
 // have random amount of aliens appear on first 3 rows
-let cells = document.querySelectorAll('.grid div')
 
-const allCellsArray = Array.from(cells)
-const startingRowsOfNodes = Array.from(cells).slice(0, 29)
-const startingRows = allCellsArray.slice(0, 29)
-const remainingRowsOfNodes = Array.from(cells).slice(28,99)
-const fullGridOfNodesWithRandomAlienClasses = startingRowsOfNodes.concat(remainingRowsOfNodes)
-const remainingRows = allCellsArray.slice(28, 99)
 
-const randomisedAliens = () => {
+let allCellsArray = Array.from(cells)
+let startingRows = allCellsArray.slice(0, 29)
+let remainingRows = allCellsArray.slice(28, 99)
+
+let randomisedAliens = () => {
   if (Math.random() > 0.5){
     return 'alien'
   }
@@ -46,6 +46,20 @@ const randomisedAliens = () => {
 
 let firstAliens = startingRows.map(randomisedAliens)
 let gridMap = firstAliens.concat(remainingRows)
+
+const resetAliens = () => {
+  let allCellsArray = Array.from(cells)
+  let startingRows = allCellsArray.slice(0, 29)
+  let remainingRows = allCellsArray.slice(28, 99)
+  
+  let randomisedAliens = () => {
+    if (Math.random() > 0.5){
+      return 'alien'
+    }
+  }
+  let firstAliens = startingRows.map(randomisedAliens)
+  let gridMap = firstAliens.concat(remainingRows)
+  }
 
 const addAliens = () => {
   for(let i=0; i<gridMap.length; i++) {
@@ -153,11 +167,9 @@ const moveAliens = () => {
   
   aliensId = setInterval(() => {
    
-  // const atLeftEdge = aliens[0] % 10 === 0
   const atLeftEdge = (alienIndexes) => {
     alienIndexes % 10 === 0
   }
-  // const atRightEdge = aliens[aliens.length - 1] % 10 === 9
   const atRightEdge = (alienIndexes) => {
     alienIndexes % 10 === 9
   }
@@ -191,15 +203,25 @@ const moveAliens = () => {
   if(bottomRow[i].classList.contains('alien')){
     result.innerHTML = 'The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
     currentLives --
-    lives.innerHTML = currentLives
-    firstLife.classList.remove('first-life')
-    firstLife.classList.add('removed-life')
     clearInterval(aliensId)
+    lives.innerHTML = currentLives
+    if(firstLife.classList.contains('first-life')) {
+      firstLife.classList.remove('first-life')
+      firstLife.classList.add('removed-life')
+  } else if (secondLife.classList.contains('second-life')) {
+    secondLife.classList.remove('second-life')
+    secondLife.classList.add('removed-life')
+  } else if (thirdLife.classList.contains('third-life')) {
+    secondLife.classList.remove('third-life')
+    secondLife.classList.add('removed-life')
+    result.innerHTML = 'No Lives left. GAME OVER'
+  }
   }
 
   if (aliensRemoved.length === alienIndexes.length) {
     result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
     clearInterval(aliensId)
+    levelTwo = true
   }
 }, 900)
 }
@@ -230,7 +252,7 @@ const fireBullet = () => {
         cells[index].classList.remove('bullet')
         cells[index - 10].classList.add('explosion')
 
-        setTimeout(()=>cells[index - 10].classList.remove('explosion'), 800)
+        setTimeout(()=>cells[index - 10].classList.remove('explosion'), 700)
         const alienRemoved = alienIndexes.indexOf(index-10)
         aliensRemoved.push(alienRemoved)
         currentScore += 50
@@ -266,10 +288,18 @@ document.addEventListener('keydown', function (event) {
 
 //start game function
 
-const start = document.querySelector('#start')
-
 const startGame = () => {
-  removeAliens()
+  aliensRemoved = []
+    removeAliens()
+    for(let i=0; i<gridMap.length; i++) {
+      allCellsArray[i].classList.remove('alien')
+    }
+    firstAliens = null
+    
+    for(let i=0; i<gridMap.length; i++) {
+      if(gridMap[i]==='alien')
+      gridMap[i] = null
+    }
   addPlayer()
   setTimeout(function(){
     addAliens()
@@ -277,8 +307,6 @@ const startGame = () => {
   },4000)
   startGameAudio.play()
 }
-
-start.addEventListener('click', startGame)
 
 //reset game function 
 
@@ -288,21 +316,28 @@ const clearPlayer = () => {
 }
 
 const clearAliens = () => {
-    removeAliens()
     aliensRemoved = []
+    removeAliens()
+    for(let i=0; i<gridMap.length; i++) {
+      allCellsArray[i].classList.remove('alien')
+    }
+    firstAliens = null
+    
+    for(let i=0; i<gridMap.length; i++) {
+      if(gridMap[i]==='alien')
+      gridMap[i] = null
+    }
+
     clearInterval(aliensId)
   
 } 
 
-// const resetAliens = () => {
-//   firstAliens = startingRows.map(randomisedAliens)
-//   gridMap = firstAliens.concat(remainingRows)
-// }
+
 
 const resetLives = () => {
-    firstLife.style.background = 'url(./images/mil-falcon.JPG)'
-    secondLife.style.background = 'url(./images/mil-falcon.JPG)'
-    thirdLife.style.background = 'url(./images/mil-falcon.JPG)'
+    firstLife.classList.add('first-life')
+    secondLife.classList.add('second-life')
+    thirdLife.classList.add('third-life')
     currentLives = 3
 }
 
@@ -315,14 +350,96 @@ const clearFunction = () => {
   clearPlayer()
   clearAliens()
   clearScore()
-  // resetAliens()
+  resetAliens()
 }
-
-
-const reset = document.querySelector('#reset')
 
 const resetGame = () => {
   clearFunction()
 }
 
 reset.addEventListener('click', resetGame)
+start.addEventListener('click', startGame)
+
+//Level Two 
+
+// if (levelTwo = true) {
+
+//  //add player to random cell in bottom row
+//  playerStartingCell = cells[(Math.floor(Math.random()*10))+90]
+ 
+//  addPlayer()
+
+//  //move player
+  
+//  playerIndex = Array.from(cells).indexOf(playerStartingCell)
+ 
+//  //initalise Aliens
+
+//   allCellsArray = Array.from(cells)
+//   startingRows = allCellsArray.slice(0, 29)
+//   remainingRows = allCellsArray.slice(28, 99)
+  
+//   firstAliens = startingRows.map(randomisedAliens)
+//   gridMap = firstAliens.concat(remainingRows)
+  
+//   addAliens()
+    
+//   // move aliens
+  
+//   let alienIndexes = findAliens(gridMap, 'alien')
+  
+//   const moveAliens = () => {
+    
+//     aliensId = setInterval(() => {
+     
+//     const atLeftEdge = (alienIndexes) => {
+//       alienIndexes % 10 === 0
+//     }
+//     const atRightEdge = (alienIndexes) => {
+//       alienIndexes % 10 === 9
+//     }
+//     const moveDown = () => {
+//       for(let i = 0; i < alienIndexes.length; i++) {
+//         alienIndexes[i] += width
+//       }
+//     }
+//     removeAliens()
+  
+//     if (alienIndexes.some(atRightEdge) && movingRight) {
+//         moveDown()
+//         direction = -1
+//         movingRight = false
+      
+//     } else if (alienIndexes.some(atLeftEdge) && !movingRight) {
+//         moveDown()
+//         direction = 1
+//         movingRight = true
+      
+//     } else {
+//       for(let i = 0; i < alienIndexes.length; i++) {
+//         alienIndexes[i] += direction
+//       }
+//     }
+  
+//     addNextAliens()
+  
+//     const bottomRow = allCellsArray.slice(90, 99)
+//     for(let i = 0; i < bottomRow.length; i++)
+//     if(bottomRow[i].classList.contains('alien')){
+//       result.innerHTML = 'The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
+//       currentLives --
+//       clearInterval(aliensId)
+//       lives.innerHTML = currentLives
+//       firstLife.classList.remove('first-life')
+//       firstLife.classList.add('removed-life')
+//     }
+  
+//     if (aliensRemoved.length === alienIndexes.length) {
+//       result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
+//       clearInterval(aliensId)
+//     }
+//   }, 700)
+//   }
+  
+//   moveAliens()
+  
