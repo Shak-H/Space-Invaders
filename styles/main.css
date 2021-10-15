@@ -128,7 +128,6 @@ h1 {
 
 .score-board {
   display: flex;
-  flex-direction: column;
   text-align: center;
   height: 100%;
   width: 50%;
@@ -143,9 +142,9 @@ h1 {
   
 }
 #score {
-  font-size: 54px;
-  height: 70%;
-  width: 100%;
+  font-size: 78px;
+  position: relative;
+  top: 8px;
 }
 
 .player-lives {

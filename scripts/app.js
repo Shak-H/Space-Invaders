@@ -19,6 +19,9 @@ const startGameAudio = document.querySelector('#startgame')
 const introSection = document.querySelector('.intro')
 const themeMusic = document.querySelector('#theme-music')
 const explosion = document.querySelector('#explosion')
+const chewy = document.querySelector('#chewy')
+const imperialMarch = document.querySelector('#imperial-march')
+const rebelSong = document.querySelector('#rebel-song')
 const start = document.querySelector('#start')
 const reset = document.querySelector('#reset')
 let levelTwo = false
@@ -47,19 +50,19 @@ let randomisedAliens = () => {
 let firstAliens = startingRows.map(randomisedAliens)
 let gridMap = firstAliens.concat(remainingRows)
 
-const resetAliens = () => {
-  let allCellsArray = Array.from(cells)
-  let startingRows = allCellsArray.slice(0, 29)
-  let remainingRows = allCellsArray.slice(28, 99)
+// const resetAliens = () => {
+//   let allCellsArray = Array.from(cells)
+//   let startingRows = allCellsArray.slice(0, 29)
+//   let remainingRows = allCellsArray.slice(28, 99)
   
-  let randomisedAliens = () => {
-    if (Math.random() > 0.5){
-      return 'alien'
-    }
-  }
-  let firstAliens = startingRows.map(randomisedAliens)
-  let gridMap = firstAliens.concat(remainingRows)
-  }
+//   let randomisedAliens = () => {
+//     if (Math.random() > 0.5){
+//       return 'alien'
+//     }
+//   }
+//   let firstAliens = startingRows.map(randomisedAliens)
+//   let gridMap = firstAliens.concat(remainingRows)
+//   }
 
 const addAliens = () => {
   for(let i=0; i<gridMap.length; i++) {
@@ -201,7 +204,7 @@ const moveAliens = () => {
   const bottomRow = allCellsArray.slice(90, 99)
   for(let i = 0; i < bottomRow.length; i++)
   if(bottomRow[i].classList.contains('alien')){
-    result.innerHTML = 'The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
+    result.innerHTML = 'YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
     currentLives --
     clearInterval(aliensId)
     lives.innerHTML = currentLives
@@ -219,7 +222,8 @@ const moveAliens = () => {
   }
 
   if (aliensRemoved.length === alienIndexes.length) {
-    result.innerHTML = 'Well done, you have the destroyed the Galactic fleet. May the force be with you!'
+    rebelSong.play()
+    result.innerHTML = 'WINNER!!! .... Well done, you have the destroyed the Galactic fleet. May the force be with you!'
     clearInterval(aliensId)
     levelTwo = true
   }
@@ -310,52 +314,53 @@ const startGame = () => {
 
 //reset game function 
 
-const clearPlayer = () => {
-  allCellsArray[playerIndex].classList.remove('player')
-  playerStartingCell.classList.remove('player')
-}
+// const clearPlayer = () => {
+//   allCellsArray[playerIndex].classList.remove('player')
+//   playerStartingCell.classList.remove('player')
+// }
 
-const clearAliens = () => {
-    aliensRemoved = []
-    removeAliens()
-    for(let i=0; i<gridMap.length; i++) {
-      allCellsArray[i].classList.remove('alien')
-    }
-    firstAliens = null
+// const clearAliens = () => {
+//     aliensRemoved = []
+//     removeAliens()
+//     for(let i=0; i<gridMap.length; i++) {
+//       allCellsArray[i].classList.remove('alien')
+//     }
+//     firstAliens = null
     
-    for(let i=0; i<gridMap.length; i++) {
-      if(gridMap[i]==='alien')
-      gridMap[i] = null
-    }
+//     for(let i=0; i<gridMap.length; i++) {
+//       if(gridMap[i]==='alien')
+//       gridMap[i] = null
+//     }
 
-    clearInterval(aliensId)
+//     clearInterval(aliensId)
   
-} 
+// } 
 
+// const resetLives = () => {
+//     firstLife.classList.add('first-life')
+//     secondLife.classList.add('second-life')
+//     thirdLife.classList.add('third-life')
+//     currentLives = 3
+// }
 
+// const clearScore = () => {
+//   currentScore = 0
+//   score.innerHTML = currentScore
+// }
 
-const resetLives = () => {
-    firstLife.classList.add('first-life')
-    secondLife.classList.add('second-life')
-    thirdLife.classList.add('third-life')
-    currentLives = 3
-}
-
-const clearScore = () => {
-  currentScore = 0
-  score.innerHTML = currentScore
-}
-
-const clearFunction = () => {
-  clearPlayer()
-  clearAliens()
-  clearScore()
-  resetAliens()
-}
+// const clearFunction = () => {
+//   clearPlayer()
+//   clearAliens()
+//   clearScore()
+//   resetAliens()
+// }
 
 const resetGame = () => {
   // clearFunction()
+  chewy.play()
+
   document.location.href=('')
+  
 }
 
 reset.addEventListener('click', resetGame)
