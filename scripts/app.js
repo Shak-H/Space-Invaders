@@ -269,6 +269,7 @@ document.addEventListener('keydown', function (event) {
 const start = document.querySelector('#start')
 
 const startGame = () => {
+  removeAliens()
   addPlayer()
   setTimeout(function(){
     addAliens()
@@ -283,6 +284,7 @@ start.addEventListener('click', startGame)
 
 const clearPlayer = () => {
   allCellsArray[playerIndex].classList.remove('player')
+  playerStartingCell.classList.remove('player')
 }
 
 const clearAliens = () => {
