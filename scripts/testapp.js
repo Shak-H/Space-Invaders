@@ -30,16 +30,16 @@ const reset = document.querySelector("#reset");
 let level = 1;
 let movementSpeed = 1000;
 
-////// Intro to Game - play music and scroll text when mouse hovers over page //////
+//play music and scroll text when mouse hovers over page
 
 const introSectionFunction = () => {
   themeMusic.play();
-  themeMusic.volume = 0.1;
+  themeMusic.volume = 0.2;
 };
 
 document.addEventListener("mousemove", introSectionFunction);
 
-////// Initialise Aliens - have random amount of aliens appear on first 3 rows //////
+// have random amount of aliens appear on first 3 rows
 
 let allCellsArray = Array.from(cells);
 let startingRows = allCellsArray.slice(0, 29);
@@ -51,8 +51,37 @@ let randomisedAliens = () => {
   }
 };
 
+// let randomisedAliensIndexes = (startPercentage, cells) => {
+//   if(Math.random()>startPercentage) {
+//     Math.round(Math.random()*cells)
+//     console.log('Math.round(Math.random*29)', Math.round(Math.random()*29))
+//   }
+// }
+// randomisedAliensIndexes(0.5, 29)
+// console.log(randomisedAliensIndexes(0.5, 29))
+// let alienIndexes = Array.from(randomisedAliensIndexes(0.5, 29))
+// console.log(alienIndexes)
+// const addAliens = (alienIndexes) => {
+
+//   alienIndexes.forEach((alien) => allCellsArray[alien].classList.add('alien'))
+// }
+
 let firstAliens = startingRows.map(randomisedAliens);
 let gridMap = firstAliens.concat(remainingRows);
+
+// const resetAliens = () => {
+//   let allCellsArray = Array.from(cells)
+//   let startingRows = allCellsArray.slice(0, 29)
+//   let remainingRows = allCellsArray.slice(28, 99)
+
+//   let randomisedAliens = () => {
+//     if (Math.random() > 0.5){
+//       return 'alien'
+//     }
+//   }
+//   let firstAliens = startingRows.map(randomisedAliens)
+//   let gridMap = firstAliens.concat(remainingRows)
+//   }
 
 const addAliens = () => {
   for (let i = 0; i < gridMap.length; i++) {
@@ -77,13 +106,19 @@ const addNextAliens = () => {
   }
 };
 
-////// Initilise Player - add player to random cell in bottom row //////
+// const removeAliens = () => {
+//   for (let i = 0; i < aliens.length; i++) {
+//     allCellsArray[aliens[i]].classList.remove('alien')
+//   }
+// }
+
+//add player to random cell in bottom row
 const playerStartingCell = cells[Math.floor(Math.random() * 10) + 90];
 const addPlayer = () => {
   playerStartingCell.classList.add("player");
 };
 
-////// Move player //////
+//move player
 
 let playerIndex = Array.from(cells).indexOf(playerStartingCell);
 console.log("playerIndex", playerIndex);
@@ -121,7 +156,7 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-////// Move Aliens //////
+// move aliens
 
 function findAliens(arr, val) {
   let indexes = [];
@@ -133,6 +168,19 @@ function findAliens(arr, val) {
 }
 
 let alienIndexes = findAliens(gridMap, "alien");
+
+// const addNextAliens = () => {
+//   for(let i=0; i<aliens.length; i++) {
+//     allCellsArray[aliens[i]].classList.add('alien')
+//   }
+// }
+// const newIndexes = (array, x) => {
+//   return array.map((index) => index+x)
+// }
+// console.log('newIndexes(alienIndexes)', newIndexes(alienIndexes, -1))
+// const moveDown = () => {
+
+// }
 
 const bottomRow = allCellsArray.slice(90, 99);
 
@@ -180,6 +228,14 @@ const moveAliens = () => {
   }, movementSpeed);
 };
 
+// for(let i = 0; i < bottomRow.length; i++)
+// if(bottomRow[i].classList.contains('alien')){
+//   // imperialMarch.play()
+//   result.innerHTML = 'YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
+//   currentLives --
+//   clearInterval(alienId)
+// lives.innerHTML = currentLives
+
 const checkLives = () => {
   if (firstLife.classList.contains("first-life")) {
     firstLife.classList.remove("first-life");
@@ -211,8 +267,7 @@ const newEmperialWave = () => {
   addNextAliens();
   moveAliens();
 };
-
-////// Initalise bullet //////
+//initalise bullet
 
 const addBullet = () => {
   if (cells[playerIndex - 10].classList.contains("alien")) {
@@ -221,7 +276,7 @@ const addBullet = () => {
   return cells[playerIndex - 10].classList.add("bullet");
 };
 
-////// Fire Bullet //////
+//fire bullet
 
 let fireBulletId;
 const fireBullet = () => {
@@ -277,7 +332,7 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-////// Start Game //////
+//start game function
 
 const startGame = () => {
   aliensRemoved = [];
@@ -298,12 +353,53 @@ const startGame = () => {
   startGameAudio.play();
 };
 
-////// Reset Game //////
+//reset game function
+
+// const clearPlayer = () => {
+//   allCellsArray[playerIndex].classList.remove('player')
+//   playerStartingCell.classList.remove('player')
+// }
+
+// const clearAliens = () => {
+//     aliensRemoved = []
+//     removeAliens()
+//     for(let i=0; i<gridMap.length; i++) {
+//       allCellsArray[i].classList.remove('alien')
+//     }
+//     firstAliens = null
+
+//     for(let i=0; i<gridMap.length; i++) {
+//       if(gridMap[i]==='alien')
+//       gridMap[i] = null
+//     }
+
+//     clearInterval(aliensId)
+
+// }
+
+// const resetLives = () => {
+//     firstLife.classList.add('first-life')
+//     secondLife.classList.add('second-life')
+//     thirdLife.classList.add('third-life')
+//     currentLives = 3
+// }
+
+// const clearScore = () => {
+//   currentScore = 0
+//   score.innerHTML = currentScore
+// }
+
+// const clearFunction = () => {
+//   clearPlayer()
+//   clearAliens()
+//   clearScore()
+//   resetAliens()
+// }
 
 const resetGame = () => {
   // clearFunction()
   chewy.play();
-  chewy.volume = 0.5;
+
   document.location.href = "";
 };
 

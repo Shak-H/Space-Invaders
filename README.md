@@ -9,12 +9,10 @@ My psuedo code for the game
   <!-- div with flex box that contains score board div and lives div -->
    <!-- score board div has a <p> with a <span> that needs to be edited when a 'alien' is hit -->
    <!-- lives div has a flex box with a <p> with a <span> that needs to be edited if 'aliens' reach 'planets surface' -->
-
-    <!-- lives div has 3 divs with a class that has a background image representing a life - the class should change when a life is taken -->
+   <!-- lives div has 3 divs with a class that has a background image representing a life - the class should change when a life is taken -->
 
   <!-- div with a class ='grid' containing 100 divs-->
-
-    <!-- 100 divs to represent each cell-->
+  <!-- 100 divs to represent each cell-->
 
   <!-- div flex with reset button -->
 
@@ -51,7 +49,7 @@ then needed to concat these 2 arrays
 <!-- variable of player index to set what cell the player starts in -->
 
 <!-- // move player -->
-<!-- document.addEventlistner('keydown') with function with swtich statement that calls function for player movement dependant on key pressed -->
+<!-- document.addEventlistner('keydown') with function with switch statement that calls function for player movement dependant on key pressed -->
 <!-- function for move in certain direction depending on which key pressed -->
  <!-- needs to add and remove alien class -->
  <!-- player index needs to change with each move -->
