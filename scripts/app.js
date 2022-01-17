@@ -186,21 +186,34 @@ let alienIndexes = findAliens(gridMap, 'alien')
 
 // }
 
+const bottomRow = allCellsArray.slice(90, 99)
+
+const atLeftEdge = (alienIndexes) => {
+  alienIndexes % 10 === 0
+}
+const atRightEdge = (alienIndexes) => {
+  alienIndexes % 10 === 9
+}
+const moveDown = () => {
+  for(let i = 0; i < alienIndexes.length; i++) {
+    alienIndexes[i] += width
+  }
+  for(let i = 0; i < bottomRow.length; i++){
+  if(bottomRow[i].classList.contains('alien')){
+    // imperialMarch.play()
+    result.innerHTML = 'YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
+    currentLives --
+    clearInterval(alienId)
+    lives.innerHTML = currentLives
+    checkLives()
+  }
+}
+}
+
 const moveAliens = () => {
-  
   alienId = setInterval((movementSpeed) => {
    
-  const atLeftEdge = (alienIndexes) => {
-    alienIndexes % 10 === 0
-  }
-  const atRightEdge = (alienIndexes) => {
-    alienIndexes % 10 === 9
-  }
-  const moveDown = () => {
-    for(let i = 0; i < alienIndexes.length; i++) {
-      alienIndexes[i] += width
-    }
-  }
+  
   removeAliens()
 
   if (alienIndexes.some(atRightEdge) && movingRight) {
@@ -218,19 +231,21 @@ const moveAliens = () => {
       alienIndexes[i] += direction
     }
   }
-
   addNextAliens()
  }, movementSpeed)
+}
 
-  const bottomRow = allCellsArray.slice(90, 99)
-  for(let i = 0; i < bottomRow.length; i++)
-  if(bottomRow[i].classList.contains('alien')){
-    // imperialMarch.play()
-    result.innerHTML = 'YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
-    currentLives --
-    clearInterval(alienId)
-    lives.innerHTML = currentLives
-    if(firstLife.classList.contains('first-life')) {
+  
+  // for(let i = 0; i < bottomRow.length; i++)
+  // if(bottomRow[i].classList.contains('alien')){
+  //   // imperialMarch.play()
+  //   result.innerHTML = 'YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life'
+  //   currentLives --
+  //   clearInterval(alienId)
+    // lives.innerHTML = currentLives
+
+ const checkLives = () => {
+  if(firstLife.classList.contains('first-life')) {
       firstLife.classList.remove('first-life')
       firstLife.classList.add('removed-life')
   } else if (secondLife.classList.contains('second-life')) {
@@ -243,12 +258,13 @@ const moveAliens = () => {
   }
   }
 
-  if (aliensRemoved.length === alienIndexes.length) {
+  const destroyedEmperialWave = () => {
+   
     // rebelSong.play()
     result.innerHTML = 'WINNER!!! .... Well done, you have the destroyed the Galactic fleet. May the force be with you!'
     level ++
     newEmperialWave()
-  }
+  
 
 }
 
@@ -294,6 +310,9 @@ const fireBullet = () => {
         score.innerHTML = currentScore
         explosion.play()
         clearInterval(fireBulletId)
+        if (aliensRemoved.length === alienIndexes.length) {
+          destroyedEmperialWave()
+        }
       } else {
       cells[index - 10].classList.add('bullet')
       cells[index].classList.remove('bullet')
@@ -396,4 +415,3 @@ const resetGame = () => {
 
 reset.addEventListener('click', resetGame)
 start.addEventListener('click', startGame)
-
