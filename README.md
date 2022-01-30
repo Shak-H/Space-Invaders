@@ -3,17 +3,29 @@ SPACE INVADERS - GA PROJECT 1
 ![image](https://user-images.githubusercontent.com/81522060/151714445-47aa67ff-cc23-4104-9b87-ed6c5c4849db.png)
 
 TABLE OF CONTENTS
+
 Overview
+
 Technologies Used
+
 Deployment
+
 Brief
+
 Development Process
+
 Planning
+
 Reaching MVP
+
 Stretch Goals
+
 Wins & Challenges
+
 Bugs & Known Errors
+
 Future Improvements
+
 Key Learnings
 
 OVERVIEW
@@ -23,9 +35,13 @@ My first dev project for the Software Engineering Immersive course and also my f
 TECHNOLOGIES USED 
 
 HTML5
+
 CSS3
+
 JavaScript
+
 GitHub
+
 DEPLOYED PROJECT LINK
 
 The game has been deployed in GitHub pages and is available [here](https://shak-h.github.io/Space-Invaders/).
@@ -35,10 +51,15 @@ BRIEF
 We were briefed with creating a game using JS grids. I decided to create the game Space Invaders, with a Star Wars theme. Where players would be able to play the part of Han Solo, fighting a fleet of TIE fighters, in the iconic Millennium Falcon.
 
 Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet's surface using a mounted gun turret.
+
 The player can only move left or right. The aliens also move from left to right, and also down each time they reach the side of the screen. The aliens also periodically drop bombs towards the player.
+
 Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet's surface.
+
 DEVELOPMENT PROCESS
+
 PLANNING
+
 My initial research for the game started when I was around 12 years old and first played Space Invaders on my fathers PC, the first video game I ever played. So when the opportunity came to create a grid based game, choosing Space Invaders was an easy decision.
 
 I started developing the game by sketching out a wireframe to help visualise how the game would look, along with some of the HTML and CSS that would be required.
@@ -104,23 +125,31 @@ The first was adding sound effects. I wanted the user to have as many of their s
 
 
 I also wanted to add levels with increasing difficulty by making the speed of the alien movement increase. I was able to add the increasing levels with faster movement, however, the randomised initialisation of the aliens caused a bug, where the number of aliens on each wave decreased, so that by the third wave no aliens appeared.
+
 WINS & CHALLENGES
+
 I was really happy with how the game looked and sounded. The theme was very clear and there were lots of aspects that supported the theme, from graphics to sounds. While I would not choose to have randomly appearing aliens again, due to the complications it caused, I was still happy I was able to make the MVP work with this feature included.
+
 I was most challenged by the alien movement - getting them to move in sync, in the right direction, and drop when any one alien hit the barrier was a challenge. Also, as my first programming project, I was challenged by the intensity of concentration and the frustration that can be experienced when your code does not quite work the way you want it to. I had my first trip to the dreaded JS valley of despair, but came out all the better for it.
+
 KNOWN BUGS & ERRORS
-Currently, the player is not able to shoot another laser until the previous laser has exited the grid/hit an alien. This is due to an issue I faced with the laser interval - firing multiple lasers would sometimes increase the interval speed of other lasers on the grid/subsequent lasers.
-Occasionally, the laser will pass through an alien without killing it and instead hit the next alien above.
-Lasers can pass through the blockade row without damaging it.
-The ‘play again’ button refreshes the page entirely instead of resetting the elements to a start state.
+
+
+
 FUTURE IMPROVEMENTS
+
 High Scores scoreboard using local storage.
 Fixed bug for when levels increase.
 Add the ability for aliens to fire lasers.
 Different types of aliens with different points, including bonus UFO.
 Adding responsive design.
+
 KEY LEARNINGS
 
 Prioritising my time was a big take away, I realised I probably spent too much time on styling, that could have been used to improve the functionality of the game. 
+
 JavaScript fundamentals. This was my first JavaScript project and no frameworks were used so it really solidified the JS concepts, methods, and DOM manipulation I’d learnt so far.
+
 Planning! Resisting the urge to start coding immediately was difficult, but writing detailed pseudocode made the development process much easier, particularly for the more challenging logic.
+
 Four weeks into a career switch bootcamp, I absolutely loved building this project. It made me certain that software engineering is the right path for me.
