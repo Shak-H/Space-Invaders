@@ -333,22 +333,23 @@ I was most challenged by the alien movement - getting them to move in sync, in t
 
 ## <a name='bugs'>KNOWN BUGS & ERRORS</a>
 
+- When you advance to the second level the number of aliens that appear reduces, and then by the third level there are no aliens left.
+- If the aliens reach the bottom row where the player is, the game continues. 
+- Occasionally, the laser will pass through an alien without killing it and instead hit the next alien above.
+- The ‘play again’ button refreshes the page entirely instead of resetting the elements to a start state.
 
 
 ## <a name='improvements'>FUTURE IMPROVEMENTS</a>
 
-High Scores scoreboard using local storage.
-Fixed bug for when levels increase.
-Add the ability for aliens to fire lasers.
-Different types of aliens with different points, including bonus UFO.
-Adding responsive design.
+- High Scores scoreboard using local storage.
+- Fix the bug for when levels increase.
+- Add the ability for aliens to fire lasers.
+- Add different types of aliens with different points, including bonus UFO.
+- Add responsive design.
 
 ## <a name='learnings'>KEY LEARNINGS</a>
 
-Prioritising my time was a big take away, I realised I probably spent too much time on styling, that could have been used to improve the functionality of the game. 
-
-JavaScript fundamentals. This was my first JavaScript project and no frameworks were used so it really solidified the JS concepts, methods, and DOM manipulation I’d learnt so far.
-
-Planning! Resisting the urge to start coding immediately was difficult, but writing detailed pseudocode made the development process much easier, particularly for the more challenging logic.
-
-Four weeks into a career switch bootcamp, I absolutely loved building this project. It made me certain that software engineering is the right path for me.
+- Prioritising my time was a big take away, I realised I probably spent too much time on styling, that could have been used to improve the functionality of the game. 
+- JavaScript fundamentals. This was my first JavaScript project and no frameworks were used so it really solidified the JS concepts, methods, and DOM manipulation I’d learnt so far.
+- Planning! Resisting the urge to start coding immediately was difficult, but writing detailed pseudocode made the development process much easier, particularly for the more challenging logic.
+- Four weeks into a career switch bootcamp, I absolutely loved building this project. It made me certain that software engineering is the right path for me.
