@@ -1,115 +1,103 @@
-# Space-Invaders
+SPACE INVADERS - GA PROJECT 1
 
-SPACE-INVADERS - this is my first project from the General Assembly course SEI-59
+TABLE OF CONTENTS
+Overview
+Technologies Used
+Deployment
+Brief
+Development Process
+Planning
+Reaching MVP
+Stretch Goals
+Wins & Challenges
+Bugs & Known Errors
+Future Improvements
+Key Learnings
+OVERVIEW
 
-My psuedo code for the game
+My first dev project for the Software Engineering Immersive course and also my first ever project using JavaScript.
 
-<!-- HTML -->
-<!-- main with flex box that contains everything -->
-  <!-- div with flex box that contains score board div and lives div -->
-   <!-- score board div has a <p> with a <span> that needs to be edited when a 'alien' is hit -->
-   <!-- lives div has a flex box with a <p> with a <span> that needs to be edited if 'aliens' reach 'planets surface' -->
-   <!-- lives div has 3 divs with a class that has a background image representing a life - the class should change when a life is taken -->
+TECHNOLOGIES USED
 
-  <!-- div with a class ='grid' containing 100 divs-->
-  <!-- 100 divs to represent each cell-->
+HTML5
+CSS3
+JavaScript
+GitHub
+DEPLOYED PROJECT LINK
 
-  <!-- div flex with reset button -->
+The game has been deployed in GitHub pages and is available here.
 
-<!-- CSS -->
-<!-- .grid 'class' -->
- <!-- .grid {display: grid, grid-template-column/row: repeat(10, 1fr), background: black}  -->
-<!-- .alien 'class' -->
- <!-- .grid .alien {background: url('alien.img') } (R - may need to use ::before and :: after)-->
-<!-- .empty/free cell 'class' -->
- <!-- may not need this - if do - .grid .free {(bacgkround:black)} -->
-<!-- .bullet 'class' -->
- <!-- .grid .bullet {background: url('bullet.img')}(R*) -->
-<!-- .player 'class' -->
- <!-- .grid .player {background: url('player.img')} -->
-<!-- .explosian 'class' (may not need)(R*) -->
-<!-- .life 'class' x3(background: url('life.img')) -->
+BRIEF
 
-<!-- JS -->
-<!-- variable with an array of ALL .grid divs -->
-<!-- // initialise aliens -->
-<!-- function randomisedClass setting out which cells in the top 3 rows have aliens (maybe set the other sells to be 'free')--> this was more complicated
+We were briefed with creating a game using JS grids. I decided to create the game Space Invaders, with a Star Wars theme. Where players would be able to play the part of Han Solo, fighting a fleet of TIE fighters, in the iconic Millennium Falcon.
 
-first needed array of all div nodes and then needed to add class of 'grid div'
-then needed an array of first 3 rows
-then needed a function to randomly return alien(class) or grid div (class)
-then need to create a new array (map) of the first 3 rows with the randomly selected alien(classes)
-then needed to concat these 2 arrays
+Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet's surface using a mounted gun turret.
+The player can only move left or right. The aliens also move from left to right, and also down each time they reach the side of the screen. The aliens also periodically drop bombs towards the player.
+Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet's surface.
+DEVELOPMENT PROCESS
+PLANNING
+My initial research for the game started when I was around 12 years old and first played Space Invaders on my fathers PC, the first video game I ever played. So when the opportunity came to create a grid based game, choosing Space Invaders was an easy decision.
 
-<!-- (if need free cells) const setting the remaning cells in grid to have a class of 'free/empmty' -->
+I started developing the game by sketching out a wireframe to help visualise how the game would look, along with some of the HTML and CSS that would be required.
 
-<!-- // initialise player -->
-<!-- variable with an array of all cells in bottom row of grid -->
-<!-- variable to randomly select cell from bottom row of grid -->
-<!-- variable of player index to set what cell the player starts in -->
+I then listed the functionality I wanted to include before deciding which would be part of the MVP and which would be my stretch goals.
 
-<!-- // move player -->
-<!-- document.addEventlistner('keydown') with function with switch statement that calls function for player movement dependant on key pressed -->
-<!-- function for move in certain direction depending on which key pressed -->
- <!-- needs to add and remove alien class -->
- <!-- player index needs to change with each move -->
- <!-- needs to know if player at edge -->
-<!-- function to stop players moving off edge -->
+Using the wireframe and planned functionality, I wrote pseudocode for the MVP, breaking it down into bite size chunks to allow me to think through all the necessary steps that were required. Here’s an example of pseudocode for the player movement logic:
 
-<!-- // move aliens -->
-<!-- function with setInterval to move aliens (difficulty - getting groups to move in formation)-->
-<!-- aliens need to move left (function)  -->
- <!-- need a variable to hold 'alienIndex' -->
- <!-- need a variable for 'newIndex' -->
- <!-- need to add and remove alien class to corresponding index -->
- <!-- needs to check if at edge -->
- <!-- if true etc -->
-<!-- then move down (function) when alien furthest to left hits edge  -->
- <!-- needs to call on ifAtEdge function ?? -->
-<!-- then move right (function)  -->
-<!-- then down when alien furthest to right hits edge -->
-<!-- needs a function to check (if at left edge) and (if at right edge)-->
- <!-- needs to call moveDown() ??-->
-<!-- cell index of EACH alien needs to change each time they move -->
+REACHING THE MVP
 
-<!-- // initialise bullet(s) -->
-<!-- first 'bullet' cell index dependent on 'playerIndex' -->
- <!-- this needs to be stored in a variable 'bulletIndex' -->
-<!-- function for moving bullet -->
- <!-- bullets will move UP (-10) Y axis-->
- <!-- need to add and remove 'bullet' class -->
- <!-- need a variable for new cell and cell index needs to become variable 'bulletIndex'-->
-  <!-- needs to check if new cell contains alien class and if not needs to add class to new cell -->
-  <!-- need to remove 'bullet' class from 'bulletIndex' -->
- <!-- need to change index each time moves a cell -->
-<!-- // bullet hits alien -->
-<!-- function isThereAnAlien (index) - return allTheCells[index].classList.contains('alien') -->
-<!-- function hitAlien -->
- <!-- if statement using the return value from isThereAnAlien OR filter to find if cell has alien -->
-  <!-- if true - score++ -->
-  <!-- remove 'alien' class from CORRECT alienIndex --> .
-  <!-- remove bullet 'class' from bulletIndex -->
-  <!-- MAYBE have explosion class apear with set(timeout) equal to set interval time -->
-<!-- // alien hits 'planets surface' -->
-<!-- function checking if alien is on bottom edge -->
-<!-- function checking if alient hits cell which is player index -->
-<!-- function for if alien is on bottom edge -->
- <!-- lives--, remove life 'class' from one of lives divs -->
- <!-- needs to call initialise aliens again -->
-<!-- // reset game -->
- <!-- need a variable isGameRunning = fales -->
- <!-- variable that holds the reset 'button' -->
- <!-- this needs to turn to true when initialising players/bullets/aliens -->
- <!-- function endGame needs-->
-  <!-- must turn isGameRunning back to false -->
-  <!-- must reset score -->
-  <!-- must reset lives -->
-  <!-- need a event listener on reset button variable that passes endGame function --
-  
+Building the grid
 
-<!-- EXTRAS -->
-<!-- start button --> added midway through as having all code execute whenever reloaded wasnt helpful when trying to check and debug
-<!-- new level - when all aliens removed - level intensity increases -->
-<!-- function to save players progress (leaderBoard) -->
-<!-- sound plays when alien hit -->
-<!-- sound plays when all aliens removed  -->
+The first step was creating the grid. I did this using a combination of HTML and CSS. I created a div with a class of “grid”, which contained separate divs for each cell and then styled the grid using CSS.
+
+Aliens
+
+I decided early on that I wanted the aliens to start in random cells on the grid (a decision that in hindsight I would not have made), and I suspected having them move in unison, in particular when moving down together, would be one of the more challenging aspects of the project. I first wrote functions to allow the aliens to randomly appear on the first 3 rows.
+
+I then wrote functions to; find the indexes of the aliens, check if they were at the edge of the grid, and then move down, which would also check to see if the aliens had reached the bottom row of the grid.
+
+Finally, I wrote a function to move the aliens across the grid at a set interval, and calling the other functions where appropriate.
+
+Player start position and movement
+
+I had my aliens, now I needed my player. Again, I wanted the player to appear in a random cell on the bottom row of the grid.
+
+I wrote a function to find the index of the player to allow for movement and then added event listeners and functions to handle left and right arrow keydowns, including logic to check if the player had reached the edge of the grid.
+
+Lasers
+
+With the aliens and player now moving (somewhat) correctly, I now needed to give the player the ability to shoot the aliens. I added a keydown event listener for the ‘F’ key, which would call a function to generate a laser to appear directly above the players current index, as well as, a sound effect on a timeout to go with it, as well as, calling another function to move up the grid at a set interval.
+
+If it hits the alien, it calls a function which would remove the alien, add an explosion and sound effect, and add to the players score.
+
+Design and audio
+
+I really wanted a theme for the game, rather than copying the original Space Invaders, and Star Wars was a perfect fit.
+
+STRETCH GOALS
+
+Once my MVP was complete I was able to start working on some of my stretch goals.
+
+The first was adding sound effects. I wanted the user to have as many of their senses stimulated as possible, as well as, giving them the full Star Wars experience. This meant using appropriate sound effects where possible. I did this by not only adding lazer and explosion sounds using set Timeouts to make them smooth, but also by adding the rolling text and Star Wars theme tune as soon as the page was clicked on.
+
+I also wanted to add levels with increasing difficulty by making the speed of the alien movement increase. I was able to add the increasing levels with faster movement, however, the randomised initialisation of the aliens caused a bug, where the number of aliens on each wave decreased, so that by the third wave no aliens appeared.
+WINS & CHALLENGES
+I was really happy with how the game looked and sounded. The theme was very clear and there were lots of aspects that supported the theme, from graphics to sounds. While I would not choose to have randomly appearing aliens again, due to the complications it caused, I was still happy I was able to make the MVP work with this feature included.
+I was most challenged by the alien movement - getting them to move in sync, in the right direction, and drop when any one alien hit the barrier was a challenge. Also, as my first programming project, I was challenged by the intensity of concentration and the frustration that can be experienced when your code does not quite work the way you want it to. I had my first trip to the dreaded JS valley of despair, but came out all the better for it.
+KNOWN BUGS & ERRORS
+Currently, the player is not able to shoot another laser until the previous laser has exited the grid/hit an alien. This is due to an issue I faced with the laser interval - firing multiple lasers would sometimes increase the interval speed of other lasers on the grid/subsequent lasers.
+Occasionally, the laser will pass through an alien without killing it and instead hit the next alien above.
+Lasers can pass through the blockade row without damaging it.
+The ‘play again’ button refreshes the page entirely instead of resetting the elements to a start state.
+FUTURE IMPROVEMENTS
+High Scores scoreboard using local storage.
+Fixed bug for when levels increase.
+Add the ability for aliens to fire lasers.
+Different types of aliens with different points, including bonus UFO.
+Adding responsive design.
+KEY LEARNINGS
+
+Prioritising my time was a big take away, I realised I probably spent too much time on styling, that could have been used to improve the functionality of the game.
+JavaScript fundamentals. This was my first JavaScript project and no frameworks were used so it really solidified the JS concepts, methods, and DOM manipulation I’d learnt so far.
+Planning! Resisting the urge to start coding immediately was difficult, but writing detailed pseudocode made the development process much easier, particularly for the more challenging logic.
+Four weeks into a career switch bootcamp, I absolutely loved building this project. It made me certain that software engineering is the right path for me.

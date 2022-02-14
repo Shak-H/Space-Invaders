@@ -1,173 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles/main.css" />
-  <title>Space Invaders</title>
-</head>
-<body>
-  <main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./main3.css" />
+    <title>Space Invaders</title>
+  </head>
+  <header>
     <h1>SPACE INVADERS: STAR WARS EDITION</h1>
-    <div class = "intro-game-results">
-    <div class = "intro">
-      <p id="intro-text">Episode X,<br>SPACE INVADERS<br><br>It is a period of 
-        civil war. Rebel spaceships, striking from a hidden base, have
-         won their first victory against the evil Galactic Empire. 
-         During the battle, Rebel spies managed to steal secret plans 
-         to the Empire's ultimate weapon, the DEATH STAR, an 
-         armoured space station with enough power to detroy an entire
-         planet. Pursued by the Empire's sinster agents, Han Solo 
-         races home aboard his starship, the Millenium Falcon, custodian 
-         of the stolen plans that can save the rebels and restore freedom 
-         to the galaxy....</p>
+  </header>
+  <body>
+    <div class="intro-game-container">
+      <div class="intro">
+        <p id="intro-text">Episode X,<br>SPACE INVADERS<br><br>It is a period of 
+          civil war. Rebel spaceships, striking from a hidden base, have
+           won their first victory against the evil Galactic Empire. 
+           During the battle, Rebel spies managed to steal secret plans 
+           to the Empire's ultimate weapon, the DEATH STAR, an 
+           armoured space station with enough power to detroy an entire
+           planet. Han Solo races home aboard his starship, the Millenium Falcon, 
+           custodian of the stolen plans that can save the rebels and restore freedom 
+           to the galaxy, but as he approches his base a fleet of TIE fighters 
+           have been waiting for him and now stand in his way. <br><br>You must take
+           the place of Han Solo and fight of the invading force.<br><br>Can you 
+           fight of the assult or will this be one fight too many....</p>
+        
+      </div><button id="start">START GAME</button>
     </div>
-    <div class = "game">
-    <div class="score-board-lives">
-       <div class="score-board">
-        <p>Score <br><span id="score">0</span></p>
-      </div>
-      <div class="player-lives">
-        <p>You have <span id="lives">3</span> lives left.</p>
-        <div class="current-lives">
-          <div class="first-life"></div>
-          <div class="second-life"></div>
-          <div class="third-life"></div>
+    <main class="hidden">
+      <div class="scoreboard">
+        <div class="score">
+          <h2>Score : <span></span></h2>
         </div>
+        <div class="player-lives">
+          <h2>Lives : </h2>
+          <div class="current-lives">
+            <img src="/styles/images/mil-falcon.JPG" alt="ship-one" id="first-life" />
+            <img src="/styles/images/mil-falcon.JPG" alt="ship-two" id="second-life" />
+            <img src="/styles/images/mil-falcon.JPG" alt="ship-three" id="third-life" />
+          </div>
+        </div>
+        <div class="level">
+          <h2>Level : <span></span></h2>
+        </div>
+       </div>
+       <div class="grid-instructions">
+        <p id = "instructions">
+          <span id = "key">Key</span><br><br>
+          Left --- Left Arrow<br><br>
+          Right --- Right Arrow<br><br>
+          Fire --- Space Bar<br>
+        </p>
+      <div class="grid">
+      </div>
+      <div class="buttons">
+        <div class="highScores">
+        <h3>HIGH SCORES</h3>
+        <ol id="highScores"></ol>
+        </div>
+        <button id="reset">RESET GAME</button>
       </div>
     </div>
-    <div class="grid">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    </main>
+    <div class="gameover-container hidden">
+      <div class="gameover">
+        <p>GAME OVER</p>
+        <p>FINAL SCORE</p>
+        <p class="final-score"></p>
+        <button class="play-again">PLAY AGAIN</button>
+      </div>
     </div>
-    <div class="buttons">
-      <button id="reset">Reset Game</button>
-      <button id="start">Start Game</button>
-    </div>
-  </div>
-    <div class = "results-board">
-      <div class = "choose-player">
-      <p></p>
-      <p></p>
-      <p></p>
-    </div>
-      <p id = "game-status"></p>
-      <p id = "instructions">
-        <span id = "key">Key</span><br><br>
-        Move Left --- Left Arrow<br><br>
-        Move Right --- Right Arrow<br><br>
-        Fire --- F Key<br>
-      </p>
-    </div>
-  </div>
-    
-</main>
-<audio id="laser" src="styles/sounds/Laser Blasts.wav"></audio>
-<audio id="startgame" src="styles/sounds/vaderbreathing.wav"></audio>
-<audio id="theme-music" src="styles/sounds/star-wars-theme-song.mp3"></audio>
-<audio id="explosion" src="styles/sounds/explosion.wav"></audio>
-<audio id="chewy" src="styles/sounds/chewy_roar.wav"></audio>
-<audio id="imperial-march" src="styles/sounds/imperial_march.wav"></audio>
-<audio id="rebel-song" src="styles/sounds/rebel-theme.wav"></audio>
-<script src="scripts/app.js"></script>
-</body>
+    <audio id="startgame" src="styles/sounds/vaderbreathing.wav"></audio>
+    <audio id="theme-music" src="styles/sounds/star-wars-theme-song.mp3"></audio>
+    <audio id="chewy" src="styles/sounds/chewy_roar.wav"></audio>
+    <audio id="explosion" src="styles/sounds/explosion.wav"></audio>
+    <audio id="rebel-song" src="styles/sounds/rebel-theme.wav"></audio>
+    <audio id="imperial-march" src="styles/sounds/imperial_march.wav"></audio>
+    <audio id="laser" src="styles/sounds/Laser Blasts.wav"></audio>
+    <audio id="bomb" src="styles/sounds/Laser Blasts.wav"></audio>
+    <script src="/scripts/newapp2.js" charset="utf-8"></script>
+  </body>
 </html>
