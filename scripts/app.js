@@ -11,6 +11,11 @@ const firstLife = document.querySelector("#first-life");
 const secondLife = document.querySelector("#second-life");
 const thirdLife = document.querySelector("#third-life");
 
+const gameOverPopup = document.querySelector(".gameover-container");
+const finalScore = document.querySelector(".final-score");
+const finalMessage = document.querySelector(".final-message");
+const playAgain = document.querySelector(".play-again");
+
 const laserAudio = document.querySelector("#laser");
 const startGameAudio = document.querySelector("#startgame");
 const themeMusic = document.querySelector("#theme-music");
