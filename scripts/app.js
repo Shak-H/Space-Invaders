@@ -18,6 +18,7 @@ const explosion = document.querySelector("#explosion");
 const chewy = document.querySelector("#chewy");
 const imperialMarch = document.querySelector("#imperial-march");
 const rebelSong = document.querySelector("#rebel-song");
+const bombAudio = document.querySelector("#bomb");
 
 const start = document.querySelector("#start");
 const reset = document.querySelector("#reset");
@@ -239,19 +240,88 @@ function newEmperialWave() {
   startBombing();
 }
 
-const checkLives = () => {
-  if (firstLife.classList.contains("first-life")) {
-    firstLife.classList.remove("first-life");
-    firstLife.classList.add("removed-life");
-  } else if (secondLife.classList.contains("second-life")) {
-    secondLife.classList.remove("second-life");
-    secondLife.classList.add("removed-life");
-  } else if (thirdLife.classList.contains("third-life")) {
-    secondLife.classList.remove("third-life");
-    secondLife.classList.add("removed-life");
-    result.innerHTML = "No Lives left. GAME OVER";
+///// Start Bombing /////
+let bombing;
+let bombInterval;
+let bombIndex;
+
+function startBombing() {
+  bombing = setInterval(startBomb, 3000);
+}
+
+function startBomb() {
+  const randomCell = Math.ceil(Math.random() * 19);
+  bombIndex = randomCell;
+  bombAudio.play();
+  bombAudio.volume = 0.3;
+  bombInterval = setInterval(function () {
+    dropBomb(bombIndex);
+  }, 200);
+}
+
+function dropBomb(bombIndex) {
+  const newBombIndex = bombIndex + row.length;
+  if (newBombIndex >= allCells.length) {
+    stopBomb();
+    return;
+  } else if (allCells[newBombIndex].classList.contains("player")) {
+    stopBomb();
+    hitPlayer(newBombIndex);
+    return;
+  } else if (allCells[newBombIndex].classList.contains("blockade")) {
+    stopBomb();
+    hitBlockade(newBombIndex);
+  } else {
+    moveBombDown(newBombIndex);
   }
-};
+}
+
+function stopBomb() {
+  clearInterval(bombInterval);
+  allCells[bombIndex].classList.remove("bomb");
+}
+
+function hitPlayer(newBombIndex) {
+  allCells[newBombIndex].classList.remove("player");
+  allCells[newBombIndex].classList.add("explosion");
+  setTimeout(() => allCells[newBombIndex].classList.remove("explosion"), 1500);
+  explosion.play();
+  explosion.volume = 0.4;
+  allCells[playerIndex].classList.add("player");
+  lives--;
+  checkLives();
+}
+
+function moveBombDown(newBombIndex) {
+  allCells[bombIndex].classList.remove("bomb");
+  allCells[newBombIndex].classList.add("bomb");
+  bombIndex = newBombIndex;
+}
+
+function checkLives() {
+  if (lives === 2) {
+    thirdLife.classList.add("hidden");
+  } else if (lives === 1) {
+    secondLife.classList.add("hidden");
+  } else if (lives === 0) {
+    gameOver();
+  }
+}
+
+////// Blockades //////
+const blockades = [173, 174, 175, 179, 180, 181, 185, 186, 187];
+blockades.forEach((cell) => allCells[cell].classList.add("blockade"));
+blockades.forEach((cell) => allCells[cell].classList.add("undamaged"));
+
+function hitBlockade(index) {
+  if (allCells[index].classList.contains("undamaged")) {
+    allCells[index].classList.remove("undamaged");
+    allCells[index].classList.add("damaged");
+  } else if (allCells[index].classList.contains("damaged")) {
+    allCells[index].classList.remove("damaged");
+    allCells[index].classList.remove("blockade");
+  }
+}
 
 ////// Game Over //////
 const playGameAgain = () => {
@@ -261,6 +331,19 @@ const playGameAgain = () => {
 };
 
 playAgain.addEventListener("click", playGameAgain);
+
+function gameOver() {
+  themeMusic.pause();
+  themeMusic.currentTime = 0;
+  document.removeEventListener("mousemove", introSectionFunction);
+  clearInterval(introId);
+  clearInterval(interval);
+  clearInterval(bombing);
+  imperialMarch.play();
+  imperialMarch.volume = 0.7;
+  gameOverPopup.classList.remove("hidden");
+  finalScore.innerHTML = score;
+}
 
 ////// Reset Game //////
 const resetGame = () => {

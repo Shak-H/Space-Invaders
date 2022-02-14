@@ -288,6 +288,26 @@ main {
   background-size: cover;
 }
 
+.bomb {
+  background: url("/styles/images/laser.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .hidden {
   display: none;                      
+}
+
+.undamaged {
+  background-image: url("/styles/images/asteroid.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.damaged {
+  background-image: url("/styles/images/broken-asteroiad.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
