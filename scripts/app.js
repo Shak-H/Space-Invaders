@@ -1,36 +1,38 @@
 // starting variables
-let cells = document.querySelectorAll(".grid div");
-let movingRight = true;
-const width = 10;
-let direction = 1;
+const grid = document.querySelector(".grid");
+const main = document.querySelector("main");
 
-let currentLives = 3;
-let currentScore = 0;
-let aliensRemoved = [];
-let alienId;
-let introId;
+const startContainer = document.querySelector(".intro-game-container");
+const scoreSpan = document.querySelector(".score span");
+const livesImages = document.querySelector(".current-lives");
+const levelSpan = document.querySelector(".level span");
 
-const lives = document.querySelector("#lives");
-const firstLife = document.querySelector(".first-life");
-const secondLife = document.querySelector(".second-life");
-const thirdLife = document.querySelector(".third-life");
-const score = document.querySelector("#score");
-const result = document.querySelector("#game-status");
+const firstLife = document.querySelector("#first-life");
+const secondLife = document.querySelector("#second-life");
+const thirdLife = document.querySelector("#third-life");
+
 const laserAudio = document.querySelector("#laser");
 const startGameAudio = document.querySelector("#startgame");
-const introSection = document.querySelector(".intro");
 const themeMusic = document.querySelector("#theme-music");
 const explosion = document.querySelector("#explosion");
 const chewy = document.querySelector("#chewy");
 const imperialMarch = document.querySelector("#imperial-march");
 const rebelSong = document.querySelector("#rebel-song");
+
 const start = document.querySelector("#start");
 const reset = document.querySelector("#reset");
 
 let level = 1;
-let movementSpeed = 1000;
+let lives = 3;
+let score = 0;
 
-////// Intro to Game - play music and scroll text when mouse hovers over page //////
+let playerIndex;
+let introId;
+
+scoreSpan.innerHTML = score;
+levelSpan.innerHTML = level;
+
+////// Intro to Game //////
 
 const introSectionFunction = () => {
   themeMusic.play();
@@ -38,6 +40,19 @@ const introSectionFunction = () => {
 };
 
 document.addEventListener("mousemove", introSectionFunction);
+
+////// Start Game //////
+start.addEventListener("click", startGame);
+
+function startGame() {
+  startContainer.classList.add("hidden");
+  main.classList.remove("hidden");
+  startGameAudio.play();
+  startGameAudio.volume = 0.4;
+  setTimeout(function () {
+    startAliensRight();
+  }, 1000);
+}
 
 ////// Constructing the Grid //////
 const row = Array.from({ length: 19 }).fill("space");
@@ -88,43 +103,71 @@ const handleArrowRight = () => {
   playerIndex = newIndex;
 };
 
-////// Initialise Aliens - have random amount of aliens appear on first 3 rows //////
-
-let allCellsArray = Array.from(cells);
-let startingRows = allCellsArray.slice(0, 29);
-let remainingRows = allCellsArray.slice(28, 99);
-
-let randomisedAliens = () => {
-  if (Math.random() > 0.5) {
-    return "alien";
-  }
-};
-
-let firstAliens = startingRows.map(randomisedAliens);
-let gridMap = firstAliens.concat(remainingRows);
-
-const addAliens = () => {
-  for (let i = 0; i < gridMap.length; i++) {
-    if (gridMap[i] === "alien") allCellsArray[i].classList.add("alien");
-  }
-};
-
-const removeAliens = () => {
-  for (let i = 0; i < alienIndexes.length; i++) {
-    allCellsArray[alienIndexes[i]].classList.remove("alien");
-  }
-};
-
-const aliens = [
-  0, 1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15, 16, 20, 21, 22, 23, 24, 25, 26,
+////// Initialise & Move Aliens //////
+let interval;
+let intervalSpeed = 1000;
+const alienStart = [
+  3, 5, 7, 9, 11, 13, 15, 23, 25, 27, 29, 31, 33, 41, 43, 45, 47, 49, 51, 53,
+  61, 63, 65, 67, 69, 71,
 ];
 
-const addNextAliens = () => {
-  for (let i = 0; i < alienIndexes.length; i++) {
-    if (!aliensRemoved.includes(i))
-      allCellsArray[alienIndexes[i]].classList.add("alien");
+let alienIndex = Array.from(alienStart);
+alienIndex.forEach((alien) => allCells[alien].classList.add("alien"));
+
+function moveAliens(indexChange) {
+  const rightBoundary = (alienIndex) => (alienIndex + 1) % 19 === 0;
+  const leftBoundary = (alienIndex) =>
+    alienIndex === 0 || alienIndex % 19 === 0;
+  switch (indexChange) {
+    case 1:
+      if (alienIndex.some(rightBoundary)) {
+        stopAliens(indexChange);
+        return;
+      }
+      break;
+    case -1:
+      if (alienIndex.some(leftBoundary)) {
+        stopAliens(indexChange);
+        return;
+      }
+      break;
   }
-};
+  for (let i = 0; i < alienIndex.length; i++) {
+    allCells[alienIndex[i]].classList.remove("alien");
+    alienIndex[i] = alienIndex[i] + indexChange;
+    allCells[alienIndex[i]].classList.add("alien");
+  }
+}
+
+function stopAliens(indexChange) {
+  clearInterval(interval);
+  moveAliensDown();
+  indexChange === 1 ? startAliensLeft() : startAliensRight();
+}
+
+function moveAliensDown() {
+  for (let i = 0; i < alienIndex.length; i++) {
+    allCells[alienIndex[i]].classList.remove("alien");
+    alienIndex[i] = alienIndex[i] + row.length;
+    allCells[alienIndex[i]].classList.add("alien");
+  }
+  if (alienIndex.some((alien) => alien > 189)) {
+    gameOver();
+    return;
+  }
+}
+
+function startAliensRight() {
+  interval = setInterval(function () {
+    moveAliens(1);
+  }, intervalSpeed);
+}
+
+function startAliensLeft() {
+  interval = setInterval(function () {
+    moveAliens(-1);
+  }, intervalSpeed);
+}
 
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
@@ -136,65 +179,6 @@ document.addEventListener("keydown", function (event) {
       break;
   }
 });
-
-////// Move Aliens //////
-
-function findAliens(arr, val) {
-  let indexes = [];
-  let i = -1;
-  while ((i = arr.indexOf(val, i + 1)) != -1) {
-    indexes.push(i);
-  }
-  return indexes;
-}
-
-let alienIndexes = findAliens(gridMap, "alien");
-
-const bottomRow = allCellsArray.slice(90, 99);
-
-const atLeftEdge = (alienIndexes) => {
-  alienIndexes % 10 === 0;
-};
-const atRightEdge = (alienIndexes) => {
-  alienIndexes % 10 === 9;
-};
-const moveDown = () => {
-  for (let i = 0; i < alienIndexes.length; i++) {
-    alienIndexes[i] += width;
-  }
-  for (let i = 0; i < bottomRow.length; i++) {
-    if (bottomRow[i].classList.contains("alien")) {
-      // imperialMarch.play()
-      result.innerHTML =
-        "YOU WERE DESTROYED!! .... The Galactic fleet have passed the blockade and have nearly reached the rebel base. You have lost a life";
-      currentLives--;
-      clearInterval(alienId);
-      lives.innerHTML = currentLives;
-      checkLives();
-    }
-  }
-};
-
-const moveAliens = () => {
-  alienId = setInterval((movementSpeed) => {
-    removeAliens();
-
-    if (alienIndexes.some(atRightEdge) && movingRight) {
-      moveDown();
-      direction = -1;
-      movingRight = false;
-    } else if (alienIndexes.some(atLeftEdge) && !movingRight) {
-      moveDown();
-      direction = 1;
-      movingRight = true;
-    } else {
-      for (let i = 0; i < alienIndexes.length; i++) {
-        alienIndexes[i] += direction;
-      }
-    }
-    addNextAliens();
-  }, movementSpeed);
-};
 
 const checkLives = () => {
   if (firstLife.classList.contains("first-life")) {
@@ -293,27 +277,6 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-////// Start Game //////
-
-const startGame = () => {
-  aliensRemoved = [];
-  removeAliens();
-  for (let i = 0; i < gridMap.length; i++) {
-    allCellsArray[i].classList.remove("alien");
-  }
-  firstAliens = null;
-
-  for (let i = 0; i < gridMap.length; i++) {
-    if (gridMap[i] === "alien") gridMap[i] = null;
-  }
-  addPlayer();
-  setTimeout(function () {
-    addAliens();
-    moveAliens();
-  }, 4000);
-  startGameAudio.play();
-};
-
 ////// Reset Game //////
 
 const resetGame = () => {
@@ -324,4 +287,3 @@ const resetGame = () => {
 };
 
 reset.addEventListener("click", resetGame);
-start.addEventListener("click", startGame);

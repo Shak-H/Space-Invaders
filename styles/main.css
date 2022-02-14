@@ -177,7 +177,7 @@ main {
     
 }
 
-/* GAME OVER STYLING */
+/* GAME OVER AND POP-UP STYLING */
 .gameover-container {
   position: fixed;
   top: 200px;
