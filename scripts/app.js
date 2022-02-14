@@ -169,16 +169,75 @@ function startAliensLeft() {
   }, intervalSpeed);
 }
 
-document.addEventListener("keydown", function (event) {
-  switch (event.key) {
-    case "ArrowLeft":
-      handleArrowLeft();
-      break;
-    case "ArrowRight":
-      handleArrowRight();
-      break;
+////// Initalise bullet //////
+let newBullet;
+let bulletIndex;
+let bulletInterval;
+
+function addBullet() {
+  if (allCells.some((cell) => cell.classList.contains("bullet"))) {
+    return;
   }
-});
+  bulletIndex = playerIndex;
+  laserAudio.play();
+  laserAudio.volume = 0.3;
+  bulletInterval = setInterval(function () {
+    moveBullet(bulletIndex);
+  }, 100);
+}
+
+////// Fire Bullet //////
+function moveBullet(bulletIndex) {
+  newBullet = bulletIndex - row.length;
+  console.log(newBullet);
+  if (newBullet <= 0) {
+    stopBullet();
+    return;
+  } else if (allCells[newBullet].classList.contains("alien")) {
+    killAlien(newBullet);
+    return;
+  } else {
+    moveBulletUp(newBullet);
+  }
+}
+
+function moveBulletUp(newBullet) {
+  allCells[bulletIndex].classList.remove("bullet");
+  allCells[newBullet].classList.add("bullet");
+  bulletIndex = newBullet;
+}
+
+function stopBullet() {
+  clearInterval(bulletInterval);
+  allCells[bulletIndex].classList.remove("bullet");
+}
+
+function killAlien(newBullet) {
+  allCells[newBullet].classList.remove("alien");
+  allCells[newBullet].classList.add("explosion");
+  setTimeout(() => allCells[newBullet].classList.remove("explosion"), 700);
+  alienIndex.splice(alienIndex.indexOf(newBullet), 1);
+  stopBullet();
+  score += 50;
+  scoreSpan.innerHTML = score;
+  explosion.play();
+  explosion.volume = 0.4;
+  if (!allCells.some((cell) => cell.classList.contains("alien"))) {
+    level++;
+    newEmperialWave();
+    levelSpan.innerHTML = level;
+  }
+}
+
+function newEmperialWave() {
+  clearInterval(interval);
+  clearInterval(bulletInterval);
+  clearInterval(bombing);
+  intervalSpeed = intervalSpeed * 0.8;
+  alienIndex = Array.from(alienStart);
+  startAliensRight();
+  startBombing();
+}
 
 const checkLives = () => {
   if (firstLife.classList.contains("first-life")) {
@@ -194,96 +253,35 @@ const checkLives = () => {
   }
 };
 
-const destroyedEmperialWave = () => {
-  // rebelSong.play()
-  result.innerHTML =
-    "WINNER!!! .... Well done, you have the destroyed the Galactic fleet. May the force be with you!";
-  level++;
-  newEmperialWave();
-};
-
-const newEmperialWave = () => {
-  clearInterval(alienId);
-
-  result.innerHTML = `Level ${level}`;
-  movementSpeed *= 0.9;
-  alienIndexes = aliens;
-  addNextAliens();
-  moveAliens();
-};
-
-////// Initalise bullet //////
-
-const addBullet = () => {
-  if (cells[playerIndex - 10].classList.contains("alien")) {
-    cells[playerIndex - 10].classList.remove("alien");
-  }
-  return cells[playerIndex - 10].classList.add("bullet");
-};
-
-////// Fire Bullet //////
-
-let fireBulletId;
-const fireBullet = () => {
-  fireBulletId = setInterval(() => {
-    Array.from(cells).map((cell) => {
-      if (cell.classList.contains("bullet")) {
-        let index = Array.from(cells).indexOf(cell);
-        console.log("index", index);
-        if (index < 10) {
-          cells[index].classList.remove("bullet");
-          clearInterval(fireBulletId);
-        } else if (cells[index - 10].classList.contains("alien")) {
-          cells[index - 10].classList.remove("alien");
-          cells[index].classList.remove("bullet");
-          cells[index - 10].classList.add("explosion");
-
-          setTimeout(
-            () => cells[index - 10].classList.remove("explosion"),
-            700
-          );
-          const alienRemoved = alienIndexes.indexOf(index - 10);
-          aliensRemoved.push(alienRemoved);
-          currentScore += 50;
-          score.innerHTML = currentScore;
-          explosion.play();
-          clearInterval(fireBulletId);
-          if (aliensRemoved.length === alienIndexes.length) {
-            destroyedEmperialWave();
-          }
-        } else {
-          cells[index - 10].classList.add("bullet");
-          cells[index].classList.remove("bullet");
-        }
-      }
-    });
-  }, 600);
-};
-
-document.addEventListener("keydown", function (event) {
-  switch (event.key) {
-    case "f":
-      console.log("pressed f key");
-      addBullet();
-      fireBullet();
-      setTimeout(function () {
-        laserAudio.play();
-        setTimeout(function () {
-          laserAudio.pause();
-          laserAudio.currentTime = 0;
-        }, 500);
-      }, 50);
-      break;
-  }
-});
-
-////// Reset Game //////
-
-const resetGame = () => {
-  // clearFunction()
+////// Game Over //////
+const playGameAgain = () => {
   chewy.play();
   chewy.volume = 0.5;
-  document.location.href = "";
+  document.location.reload();
+};
+
+playAgain.addEventListener("click", playGameAgain);
+
+////// Reset Game //////
+const resetGame = () => {
+  chewy.play();
+  chewy.volume = 0.5;
+  document.location.reload();
 };
 
 reset.addEventListener("click", resetGame);
+
+////// Event Listeners //////
+document.addEventListener("keydown", function (event) {
+  switch (event.key) {
+    case "ArrowLeft":
+      handleArrowLeft();
+      break;
+    case "ArrowRight":
+      handleArrowRight();
+      break;
+    case " ":
+      addBullet();
+      break;
+  }
+});
