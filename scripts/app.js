@@ -39,6 +39,55 @@ const introSectionFunction = () => {
 
 document.addEventListener("mousemove", introSectionFunction);
 
+////// Constructing the Grid //////
+const row = Array.from({ length: 19 }).fill("space");
+const gridMap = row
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row)
+  .concat(row);
+
+gridMap.forEach((className, i) => {
+  const newCell = document.createElement("div");
+  grid.appendChild(newCell);
+  newCell.classList.add(className, i);
+});
+
+const allCells = Array.from(document.querySelectorAll(".grid div"));
+
+////// Initilise & Move Player //////
+const playerStart = allCells[Math.floor(Math.random() * 10) + 190];
+playerStart.classList.add("player");
+playerIndex = allCells.indexOf(playerStart);
+
+const handleArrowLeft = () => {
+  const newIndex = playerIndex - 1;
+  if (playerIndex % 19 === 0) {
+    console.log("cant move - at edge");
+    return;
+  }
+  allCells[playerIndex].classList.remove("player");
+  allCells[newIndex].classList.add("player");
+  playerIndex = newIndex;
+};
+
+const handleArrowRight = () => {
+  const newIndex = playerIndex + 1;
+  if ((playerIndex + 1) % 19 === 0) {
+    console.log("cant move - at edge");
+    return;
+  }
+  allCells[playerIndex].classList.remove("player");
+  allCells[newIndex].classList.add("player");
+  playerIndex = newIndex;
+};
+
 ////// Initialise Aliens - have random amount of aliens appear on first 3 rows //////
 
 let allCellsArray = Array.from(cells);
@@ -75,39 +124,6 @@ const addNextAliens = () => {
     if (!aliensRemoved.includes(i))
       allCellsArray[alienIndexes[i]].classList.add("alien");
   }
-};
-
-////// Initilise Player - add player to random cell in bottom row //////
-const playerStartingCell = cells[Math.floor(Math.random() * 10) + 90];
-const addPlayer = () => {
-  playerStartingCell.classList.add("player");
-};
-
-////// Move player //////
-
-let playerIndex = Array.from(cells).indexOf(playerStartingCell);
-console.log("playerIndex", playerIndex);
-
-const handleArrowLeft = () => {
-  const newIndex = playerIndex - 1;
-  if (playerIndex % 10 === 0) {
-    console.log("cant move - at edge");
-    return;
-  }
-  cells[playerIndex].classList.remove("player");
-  cells[newIndex].classList.add("player");
-  playerIndex = newIndex;
-};
-
-const handleArrowRight = () => {
-  const newIndex = playerIndex + 1;
-  if ((playerIndex + 1) % 10 === 0) {
-    console.log("cant move - at edge");
-    return;
-  }
-  cells[playerIndex].classList.remove("player");
-  cells[newIndex].classList.add("player");
-  playerIndex = newIndex;
 };
 
 document.addEventListener("keydown", function (event) {

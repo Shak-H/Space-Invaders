@@ -45,7 +45,6 @@ main {
 }
 
 /* INTRO SYLING */
-
 .intro-game-container {
   position: fixed;
   top: 150px;
@@ -119,19 +118,43 @@ main {
  }
 
 /* SCOREDBOARD STYLING */
-
-.score-board-lives {
+.scoreboard {
+  height: 50px;
+  width: 900px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 90%;
-  height: 15%;
-  
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+}
+.score,
+.level {
+  width: 30%;
+  height: 160%;
+}
+.score h2,
+.level h2 {
+  text-align: center;
+}
+.player-lives {
+  width: 30%;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
+.current-lives {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.current-lives img {
+  height: 40px;
+}
 
-
-
+/* INSTRUCTIONS STYLING */
 
 #instructions {
   height: 32%;
@@ -144,92 +167,6 @@ main {
   
 }
 
-.score-board {
-  display: flex;
-  text-align: center;
-  height: 100%;
-  width: 50%;
-  align-self: center;
-  justify-content: center;
-}
-.score-board p {
-  margin-bottom: 0;
-  margin-top: 0;
-  width: 100%;
-  height: 25%;
-  
-}
-#score {
-  font-size: 78px;
-  position: relative;
-  top: 8px;
-}
-
-.player-lives {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 50%;
-  align-content: center;
-  justify-self: center;
-}
-.player-lives p {
-  margin: 0;
-  height: 20%;
-  width: 100%;
-  text-align: center;
-}
-.current-lives {
-  display: flex;
-  flex-direction: row;
-  height: 80%;
-  justify-content: space-evenly;
- 
-}
-.first-life {
-  border: 2px solid black;
-  height: 100%;
-  width: 32%;
-  background: url('./images/mil-falcon.JPG');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-.second-life {
-  border: 2px solid black;
-  height: 100%;
-  width: 32%;
-  background: url('./images/mil-falcon.JPG');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-.third-life {
-  border: 2px solid black;
-  height: 100%;
-  width: 32%;
-  background: url('./images/mil-falcon.JPG');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-.removed-life {
-  border: 2px solid black;
-  height: 100%;
-  width: 32%;
-  background: rgba(255, 255, 255, 0);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  grid-auto-rows: 1fr;
-  grid-auto-columns: 1fr;
-  height: 76%;
-  width: 85%;
-}
-
 .buttons {
   display: flex;
   width: 80%;
@@ -239,12 +176,40 @@ main {
   margin-bottom: 10px;
     
 }
+
+/* GAME OVER STYLING */
+.gameover-container {
+  position: fixed;
+  top: 200px;
+  z-index: 500;
+  width: 100%;
+  height: 400px;
+}
+
+.gameover {
+  width: 40%;
+  height: 100%;
+  z-index: 600;
+  background-color: black;
+  border: 1px solid #F9D71C;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 30px;
+}
+
 #reset {
   border: 3px solid #F9D71C;
   background: rgba(255, 255, 255, 0);
   color: #F9D71C;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Pathway Gothic One', sans-serif;
+  padding: 10px 30px;
 }
 #reset:hover {
+  cursor: pointer;
   border: 3px solid black;
   background: #F9D71C;
   color: black;
@@ -254,6 +219,13 @@ main {
   border: 3px solid #F9D71C;
   background: rgba(255, 255, 255, 0);
   color: #F9D71C;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Pathway Gothic One', sans-serif;
+  padding: 10px 30px;
+  margin-left: 2%;
+  margin-bottom: 2%;
 }
 #start:hover {
   border: 3px solid black;
@@ -262,14 +234,43 @@ main {
   box-shadow: 10px 5px 5px #F9D71C;
 }
 
+.play-again {
+  border: 3px solid #F9D71C;
+  background: none;
+  color: #F9D71C;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Pathway Gothic One', sans-serif;
+  padding: 10px 30px;
+  margin: 0 auto;
+}
+
+.play-again:hover {
+  cursor: pointer;
+  border: 3px solid black;
+  background: #F9D71C;
+  color: black;
+  box-shadow: 10px 5px 5px #F9D71C;
+}
+
+.final-score {
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: #F9D71C;
+  font-size: 40px;
+  line-height: 1;
+}
+
+/* GAME PLAY STYLING */
+
 .alien {
   background: url('./images/Tie-fighter.png');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }
 .player { 
-  background: url('./images/mil-falcon.JPG');
+  background: url('./images/mil-falcon.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -277,12 +278,16 @@ main {
 .bullet {
   background: url('./images/laser.png');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }
 .explosion {
   background: url('./images/explosion.gif');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
+}
+
+.hidden {
+  display: none;                      
 }
