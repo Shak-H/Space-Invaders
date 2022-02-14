@@ -46,20 +46,41 @@ main {
 
 /* INTRO SYLING */
 
-.intro-game-results {
-  display: flex;
-  flex-direction: row;
-  height: 95%;
+.intro-game-container {
+  position: fixed;
+  top: 150px;
+  z-index: 500;
   width: 100%;
+  height: 95%;
+  top: -25px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
 }
+
 .intro {
+  display: flex;
+  justify-content: center;
+  width: 40%;
   height: 100%;
-  width: 20%;
-  padding: 10px;
-  overflow: hidden;
+  z-index: 600;
+  perspective: 400px;
+  letter-spacing: 6px;
+  line-height: 150%;
+  font-weight: 600;
+  background-color: transparent;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 20px;
+  overflow: hidden; 
 }
+
 #intro-text {
-  height: 100%;
+  position: relative;
+  top: -100px;
+  transform-origin: 50% 100%;
+  height: 80%;
   font-size: 30px;
   text-align: justify;
   text-align-last: center;
@@ -67,10 +88,11 @@ main {
   -moz-transform:translateY(100%);
   -webkit-transform:translateY(100%);
   transform:translateY(100%);
-  -moz-animation: intro-text 30s linear infinite;
-  -webkit-animation: intro-text 30s linear infinite;
-  animation: intro-text 30s linear infinite;
+  -moz-animation: intro-text 165s linear infinite;
+  -webkit-animation: intro-text 165s linear infinite;
+  animation: intro-text 165s linear infinite;
 }
+
 @-moz-keyframes intro-text {
   0% {-moz-transform: translateY(100%);}
   100% {-moz-transform: translateY(-100%);}
@@ -79,27 +101,25 @@ main {
   0%   { -webkit-transform: translateY(100%); }
  100% { -webkit-transform: translateY(-100%); }
 }
-@keyframes example1 {
+@keyframes intro-text {
   0%   { 
   -moz-transform: translateY(100%); 
   -webkit-transform: translateY(100%); 
   transform: translateY(100%); 		
+  top: 0;
+  transform: rotateX(20deg) translateZ(0)
   }
   100% { 
   -moz-transform: translateY(-100%); 
   -webkit-transform: translateY(-100%); 
   transform: translateY(-100%); 
+  top: -6000px;
+  transform: rotateX(25deg) translateZ(-2500px)
   }
  }
 
-.game {
-  height: 100%;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-}
+/* SCOREDBOARD STYLING */
+
 .score-board-lives {
   display: flex;
   flex-direction: row;
@@ -109,29 +129,10 @@ main {
   
 }
 
-.results-board {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  height: 100%;
-  width: 20%;
-  
-  margin: 10px;
-   
-}
 
-.choose-player {
-  display: flex;
-  flex-direction: row;
-  height: 32%;
-  width: 100%;
-}
-#game-status {
-  font-size: 24px;
-  height: 32%;
-  width: 100%;
-  margin: 0 auto;
-}
+
+
+
 #instructions {
   height: 32%;
   width: 100%;
