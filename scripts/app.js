@@ -23,6 +23,8 @@ const bombAudio = document.querySelector("#bomb");
 const start = document.querySelector("#start");
 const reset = document.querySelector("#reset");
 
+const highScoreList = document.querySelector("#highScores");
+
 let level = 1;
 let lives = 3;
 let score = 0;
@@ -50,8 +52,12 @@ function startGame() {
   main.classList.remove("hidden");
   startGameAudio.play();
   startGameAudio.volume = 0.4;
+  highScoreList.innerHTML = highScore.map(
+    (score) => `<li>${score.score} - ${score.name}`
+  );
   setTimeout(function () {
     startAliensRight();
+    startBombing();
   }, 1000);
 }
 
@@ -323,6 +329,43 @@ function hitBlockade(index) {
   }
 }
 
+////// Saving High Scores //////
+
+const noOfHighScores = 10;
+const highScores = "highScores";
+
+const highScoreString = localStorage.getItem(highScores);
+const highScore = JSON.parse(highScoreString) ?? [];
+
+function checkHighScore(score) {
+  const highScore = JSON.parse(localStorage.getItem(highScores)) ?? [];
+  const lowestScore = highScore[noOfHighScores - 1]?.score ?? 0;
+
+  if (score > lowestScore) {
+    saveHighScore(score, highScore);
+    showHighScores();
+  }
+}
+
+function saveHighScore(score, highScore) {
+  const name = prompt("You got a highscore! Enter name:");
+  const newScore = { score, name };
+
+  highScore.push(newScore);
+  highScore.sort((a, b) => b.score - a.score);
+  highScore.splice(noOfHighScores);
+  localStorage.setItem(highScores, JSON.stringify(highScore));
+}
+
+function showHighScores() {
+  const highScore = JSON.parse(localStorage.getItem(highScores)) ?? [];
+  const highScoreList = document.querySelector("#highScores");
+
+  highScoreList.innerHTML = highScore
+    .map((score) => `<li>${score.score} - ${score.name}`)
+    .join("");
+}
+
 ////// Game Over //////
 const playGameAgain = () => {
   chewy.play();
@@ -343,6 +386,7 @@ function gameOver() {
   imperialMarch.volume = 0.7;
   gameOverPopup.classList.remove("hidden");
   finalScore.innerHTML = score;
+  checkHighScore(score);
 }
 
 ////// Reset Game //////
