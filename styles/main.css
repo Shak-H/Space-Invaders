@@ -12,7 +12,6 @@ h1 {
   font-size: 40px;
 }
 body {
-  height: 100vh;
   margin: 0;
   background: url('./images/star-wars-backgrounds-25.jpg');
   color: #F9D71C;
@@ -299,7 +298,7 @@ main {
 }
 
 .bomb {
-  background: url("/styles/images/laser.png");
+  background: url("./images/laser.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -310,13 +309,13 @@ main {
 }
 
 .undamaged {
-  background-image: url("/styles/images/asteroid.jpg");
+  background-image: url("./images/asteroid.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 .damaged {
-  background-image: url("/styles/images/broken-asteroiad.jpg");
+  background-image: url("./images/broken-asteroiad.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
