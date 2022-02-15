@@ -14,6 +14,7 @@ h1 {
 body {
   margin: 0;
   background: url('./images/star-wars-backgrounds-25.jpg');
+  background-size: cover;
   color: #F9D71C;
   font-family: 'MyWebFont', Fallback, sans-serif;
 }
@@ -207,23 +208,6 @@ main {
   font-size: 30px;
 }
 
-#reset {
-  border: 3px solid #F9D71C;
-  background: rgba(255, 255, 255, 0);
-  color: #F9D71C;
-  text-transform: uppercase;
-  font-size: 20px;
-  font-weight: bold;
-  font-family: 'Pathway Gothic One', sans-serif;
-  padding: 10px 30px;
-}
-#reset:hover {
-  cursor: pointer;
-  border: 3px solid black;
-  background: #F9D71C;
-  color: black;
-  box-shadow: 10px 5px 5px #F9D71C;
-}
 #start {
   border: 3px solid #F9D71C;
   background: rgba(255, 255, 255, 0);
@@ -237,6 +221,24 @@ main {
   margin-bottom: 2%;
 }
 #start:hover {
+  border: 3px solid black;
+  background: #F9D71C;
+  color: black;
+  box-shadow: 10px 5px 5px #F9D71C;
+}
+
+#reset {
+  border: 3px solid #F9D71C;
+  background: rgba(255, 255, 255, 0);
+  color: #F9D71C;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Pathway Gothic One', sans-serif;
+  padding: 10px 30px;
+}
+#reset:hover {
+  cursor: pointer;
   border: 3px solid black;
   background: #F9D71C;
   color: black;
