@@ -1,6 +1,6 @@
 # SPACE INVADERS - GA PROJECT 1
 
-![gif](https://github.com/Shak-H/Space-Invaders/blob/main/space-invaders-gif1.gif)
+![gif](https://github.com/Shak-H/Space-Invaders/blob/main/space-invaders-gif2.gif)
 
 ## TABLE OF CONTENTS
 
@@ -20,6 +20,8 @@
 ## <a name='overview'>OVERVIEW</a>
 
 My first dev project for the Software Engineering Immersive course and also my first ever project using JavaScript.
+
+#### *UPDATE - since completing the course I spent 3 days editing and improving the project.
 
 ### <a name='technologies'>TECHNOLOGIES USED</a>
 
@@ -73,6 +75,22 @@ Using the wireframe and planned functionality, I wrote pseudocode for the MVP, b
 
 #### Building the grid
 
+#### *UPDATE
+
+When improving my project I decided to change how I constructed the grid. I used the `from()` and `fill()` array methods to create rows of a fixed length, and `concat()` to construct a grid of 11 rows. I then used `forEach()` to loop over the grid array and for each index: create a `div` element; create class names from the index and fill string; and append the div to the main grid div in my HTML.
+
+```
+
+gridMap.forEach((className, i) => {
+  const newCell = document.createElement("div");
+  grid.appendChild(newCell);
+  newCell.classList.add(className, i);
+});
+
+```
+
+#### *ORIGINAL CODE
+
 The first step was creating the grid. I did this using a combination of HTML and CSS. I created a div with a class of “grid”, which contained a separate `div` for each cell and then styled the grid using CSS.
 
 ```
@@ -90,6 +108,41 @@ The first step was creating the grid. I did this using a combination of HTML and
 ```
 
 #### Aliens
+
+#### *UPDATE
+
+Having the aliens appear in random cells made it difficult to add extra features to my game so I decided to change how they appeared and moved. I wrote a function to move the aliens across the grid at a set interval, checking each time to see if some hit the edges of the grid. If the aliens reach the edge, they will move down and start in the other direction. However, if they have hit the bottom player row, it’s game over.
+
+```
+
+function moveAliens(indexChange) {
+  const rightBoundary = (alienIndex) => (alienIndex + 1) % 19 === 0;
+  const leftBoundary = (alienIndex) =>
+    alienIndex === 0 || alienIndex % 19 === 0;
+  switch (indexChange) {
+    case 1:
+      if (alienIndex.some(rightBoundary)) {
+        stopAliens(indexChange);
+        return;
+      }
+      break;
+    case -1:
+      if (alienIndex.some(leftBoundary)) {
+        stopAliens(indexChange);
+        return;
+      }
+      break;
+  }
+  for (let i = 0; i < alienIndex.length; i++) {
+    allCells[alienIndex[i]].classList.remove("alien");
+    alienIndex[i] = alienIndex[i] + indexChange;
+    allCells[alienIndex[i]].classList.add("alien");
+  }
+}
+
+```
+
+#### *ORIGINAL CODE
 
 I decided early on that I wanted the aliens to start in random cells on the grid (a decision that in hindsight I would not have made), and I suspected having them move in unison, in particular when moving down together, would be one of the more challenging aspects of the project. I first wrote functions to allow the aliens to randomly appear on the first 3 rows.
 
@@ -193,10 +246,9 @@ I had my aliens, now I needed my player. Again, I wanted the player to appear in
 
 ```
 
-const playerStartingCell = cells[Math.floor(Math.random() * 10) + 90];
-const addPlayer = () => {
-  playerStartingCell.classList.add("player");
-};
+const playerStart = allCells[Math.floor(Math.random() * 10) + 190];
+playerStart.classList.add("player");
+playerIndex = allCells.indexOf(playerStart);
 
 ```
 
@@ -241,13 +293,55 @@ document.addEventListener("keydown", function (event) {
 
 #### Lasers
 
-With the aliens and player now moving (somewhat) correctly, I now needed to give the player the ability to shoot the aliens. I added a keydown event listener for the ‘F’ key, which would call a function to generate a laser to appear directly above the players current index, as well as, a sound effect on a timeout to go with it, as well as, calling another function to move up the grid at a set interval.
+#### *UPDATE
+
+The change to the Grid meant I also needed to change the way my lasers moved. Now on keydown, a bullet is generated at the player’s current index and moves up the grid at a set interval. If it hits an alien, it calls a function to kill the alien, removing it from the grid, and increases the player’s score accordingly. If there are no aliens left on the grid, the aliens regenerate to their starting position and the level increases by 1. Here’s my `killAlien` function:
+
+```
+
+function killAlien(newBullet) {
+  allCells[newBullet].classList.remove("alien");
+  allCells[newBullet].classList.add("explosion");
+  setTimeout(() => allCells[newBullet].classList.remove("explosion"), 700);
+  alienIndex.splice(alienIndex.indexOf(newBullet), 1);
+  stopBullet();
+  score += 50;
+  scoreSpan.innerHTML = score;
+  explosion.play();
+  explosion.volume = 0.4;
+  if (!allCells.some((cell) => cell.classList.contains("alien"))) {
+    level++;
+    newEmperialWave();
+    levelSpan.innerHTML = level;
+  }
+}
+
+```
+I also decided to add a function to have lasers fired at the player. I used similar logic to the lasers for moving the bombs down the grid, however initialising the bombs required an interval and a random index to be generated for the starting position each time. If a bomb hit the player, the player would be reset to their original starting position, and a life would be taken away. If the player had no lives left, game over!
+
+```
+function hitPlayer(newBombIndex) {
+  allCells[newBombIndex].classList.remove("player");
+  allCells[newBombIndex].classList.add("explosion");
+  setTimeout(() => allCells[newBombIndex].classList.remove("explosion"), 1500);
+  explosion.play();
+  explosion.volume = 0.4;
+  allCells[playerIndex].classList.add("player");
+  score -= 45;
+  lives--;
+  checkLives();
+}
+```
+
+#### *ORIGINAL CODE
+
+With the aliens and player now moving (somewhat) correctly, I now needed to give the player the ability to shoot the aliens. I added a keydown event listener for the Spacebar, which would call a function to generate a laser to appear directly above the players current index, as well as, a sound effect on a timeout to go with it, as well as, calling another function to move up the grid at a set interval.
 
 ```
 
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
-    case "f":
+    case " ":
       addBullet();
       fireBullet();
       setTimeout(function () {
@@ -308,9 +402,65 @@ const fireBullet = () => {
 
 #### Design & Audio
 
+#### *UPDATE
+
+As part of my update, I really wanted the intro be seperate to the actually game play. I used classes to toggle elements from hidden to visible. An event listener for the start game button would hide the intro display div and make the main game container visible. If the player runs out of lives, this toggles the game over div to visible, displaying the player’s final score and a play again button.
+
+![image](https://user-images.githubusercontent.com/81522060/154309742-1d53bb4e-0bce-433f-b17f-ddf070e85260.png)
+
+![image](https://user-images.githubusercontent.com/81522060/154309828-bd1c8345-042c-4c0b-8b1f-3f204e19ada6.png)
+
+![image](https://user-images.githubusercontent.com/81522060/154309882-d864cc08-fccf-4e23-9656-a5e082c7d98e.png)
+
+#### *ORIGINAL CODE
+
 I really wanted a theme for the game, rather than copying the original Space Invaders, and Star Wars was a perfect fit.
 
 ### <a name='stretch'>STRETCH GOALS</a>
+
+#### *UPDATE
+
+Apart from adding lasers being fired at the player, I also wanted to create a blockade and have high scores saved locally.
+
+For the blockade, in the row above the player, I added a `.blockade` class to nine grid cells to create three blockade rows. I also initialised these blockades with a class of `.undamaged`. If a dropped bomb collides with a blockade, it changes the `.undamaged` class to `.damaged`, and the blockade visually shrinks. If a `.damaged` cell is hit again, the `.blockade` class is removed and it disappears, reducing the player’s protection.
+
+To save high scores, I wrote three functions. One would check the score, to see if it was higher than the current 10 highest. Next was saving the high score in a key value pair, with the score and the player name, stored using the `prompt` method. Thirdly, I had to display the high scores, I did this using the `map` method adding an ordered list item to each score in my high score array.
+
+```
+
+const highScoreString = localStorage.getItem(highScores);
+const highScore = JSON.parse(highScoreString) ?? [];
+
+function checkHighScore(score) {
+  const highScore = JSON.parse(localStorage.getItem(highScores)) ?? [];
+  const lowestScore = highScore[noOfHighScores - 1]?.score ?? 0;
+
+  if (score > lowestScore) {
+    saveHighScore(score, highScore);
+    showHighScores();
+  }
+}
+
+function saveHighScore(score, highScore) {
+  const name = prompt("You got a highscore! Enter name:");
+  const newScore = { score, name };
+  highScore.push(newScore);
+  highScore.sort((a, b) => b.score - a.score);
+  highScore.splice(noOfHighScores);
+  localStorage.setItem(highScores, JSON.stringify(highScore));
+}
+
+function showHighScores() {
+  const highScore = JSON.parse(localStorage.getItem(highScores)) ?? [];
+  const highScoreList = document.querySelector("#highScores");
+  highScoreList.innerHTML = highScore
+    .map((score) => `<li>${score.score} - ${score.name}`)
+    .join("");
+}
+
+```
+
+#### *ORIGINAL CODE
 
 Once my MVP was complete I was able to start working on some of my stretch goals.
 
@@ -335,6 +485,9 @@ I was most challenged by the alien movement - getting them to move in sync, in t
 
 ## <a name='bugs'>KNOWN BUGS & ERRORS</a>
 
+#### *UPDATE
+The first two bugs below have been fixed.
+
 - When you advance to the second level the number of aliens that appear reduces, and then by the third level there are no aliens left.
 - If the aliens reach the bottom row where the player is, the game continues.
 - Occasionally, the laser will pass through an alien without killing it and instead hit the next alien above.
@@ -342,11 +495,15 @@ I was most challenged by the alien movement - getting them to move in sync, in t
 
 ## <a name='improvements'>FUTURE IMPROVEMENTS</a>
 
+#### *UPDATE
+The first two points below have been added/fixed.
+
 - High Scores scoreboard using local storage.
 - Fix the bug for when levels increase.
 - Add the ability for aliens to fire lasers.
 - Add different types of aliens with different points, including bonus UFO.
 - Add responsive design.
+- Add the ability for the user to select different characters.
 
 ## <a name='learnings'>KEY LEARNINGS</a>
 
