@@ -3,25 +3,24 @@
 }
 header {
   text-align: center;
-  height: 80px;
   font-family: 'Pathway Gothic One', sans-serif;
 }
 h1 {
   text-align: center;
-  margin-top: 1.5%;
-  font-size: 40px;
 }
 body {
   margin: 0;
   background: url('./images/star-wars-backgrounds-25.jpg');
   background-size: cover;
   color: #F9D71C;
-  font-family: 'MyWebFont', Fallback, sans-serif;
+  font-family: 'Pathway Gothic One', sans-serif;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; 
 }
 
 /* MAIN STYLING */
 main {
-  margin-bottom: 10px;
   font-family: 'Pathway Gothic One', sans-serif;
   height: 100%;
   width: 100%;
@@ -36,7 +35,7 @@ main {
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
   gap: 0px;
-  margin: 2% auto;
+
 }
 .grid div {
   border: none;
@@ -45,51 +44,73 @@ main {
 }
 
 /* INTRO SYLING */
-.intro-game-container {
-  position: fixed;
-  top: 150px;
-  z-index: 500;
+.start-screen {
+  display: flex;
+  height: 100%;
   width: 100%;
-  height: 95%;
+}
+
+#first-intro {
+  font-family: 'Roboto Serif', sans-serif;
+  color: turquoise;
+  font-size: 40px;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-35%, -50%);
+  width: 60%;
+}
+
+#click {
+  position: absolute;
+  left: 50%;
+  top: 95%;
+  transform: translate(-45%, -50%);
+}
+
+.intro-game-container {
   top: -25px;
   background-image: linear-gradient(0deg, transparent, black 75%);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  height: 800px;
+  font-size: 250%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
+  perspective: 400px;
+  text-align: justify;
+  text-align-last: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .intro {
-  display: flex;
-  justify-content: center;
-  width: 40%;
-  height: 100%;
-  z-index: 600;
-  perspective: 400px;
-  letter-spacing: 6px;
-  line-height: 150%;
-  font-weight: 600;
-  background-color: transparent;
-  position: relative;
   margin: 0 auto;
-  text-align: center;
-  font-size: 16px;
-  line-height: 1.6;
   padding: 20px;
-  overflow: hidden; 
-}
-
-#intro-text {
   position: relative;
-  top: -100px;
+  top: 9999px;
   transform-origin: 50% 100%;
   height: 80%;
-  font-size: 30px;
-  text-align: justify;
-  text-align-last: center;
-  margin: 0;
+  width: 50%;
   -moz-transform:translateY(100%);
   -webkit-transform:translateY(100%);
   transform:translateY(100%);
   -moz-animation: intro-text 165s linear infinite;
   -webkit-animation: intro-text 165s linear infinite;
   animation: intro-text 165s linear infinite;
+}
+
+.intro > .title {
+  font-size: 90%;
+  text-align: center;
+}
+
+.intro > .title h1 {
+  margin: 0 0 100px;
+  text-transform: uppercase;
 }
 
 @-moz-keyframes intro-text {
@@ -163,8 +184,8 @@ main {
 #instructions {
   font-size: 20px;
   font-weight: bold;
-  width: 11%;
-  margin-left: 2%;
+  width: 14%;
+  margin-left: 0.5%;
   align-self: center;
 }
 
@@ -177,14 +198,19 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 11%;
-  margin-right: 2%;
-  
+  width: 18%;
+  margin-right: 0.5%;
+  margin-bottom: 1%;
 }
 
 .highScores {
   width: 100%;
   font-size: 20px;
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
 }
 
 /* GAME OVER AND POP-UP STYLING */
@@ -219,6 +245,8 @@ main {
   padding: 10px 30px;
   margin-left: 2%;
   margin-bottom: 2%;
+  justify-self: flex-start;
+  width: 20%;
 }
 #start:hover {
   border: 3px solid black;
@@ -307,6 +335,10 @@ main {
 }
 
 .hidden {
+  display: none;                      
+}
+
+.hidden-two {
   display: none;                      
 }
 

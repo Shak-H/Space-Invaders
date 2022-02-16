@@ -1,6 +1,8 @@
 // starting variables
 const grid = document.querySelector(".grid");
 const main = document.querySelector("main");
+const startScreen = document.querySelector(".start-screen");
+const header = document.querySelector("header");
 
 const startContainer = document.querySelector(".intro-game-container");
 const scoreSpan = document.querySelector(".score span");
@@ -45,9 +47,11 @@ levelSpan.innerHTML = level;
 const introSectionFunction = () => {
   themeMusic.play();
   themeMusic.volume = 0.1;
+  startScreen.classList.add("hidden");
+  startContainer.classList.remove("hidden-two");
 };
 
-document.addEventListener("mousemove", introSectionFunction);
+document.addEventListener("click", introSectionFunction);
 
 ////// Start Game //////
 start.addEventListener("click", startGame);
@@ -55,6 +59,7 @@ start.addEventListener("click", startGame);
 function startGame() {
   startContainer.classList.add("hidden");
   main.classList.remove("hidden");
+  header.classList.remove("hidden");
   startGameAudio.play();
   startGameAudio.volume = 0.4;
   highScoreList.innerHTML = highScore.map(
@@ -299,6 +304,7 @@ function hitPlayer(newBombIndex) {
   explosion.play();
   explosion.volume = 0.4;
   allCells[playerIndex].classList.add("player");
+  score -= 45;
   lives--;
   checkLives();
 }
@@ -331,6 +337,7 @@ function hitBlockade(index) {
   } else if (allCells[index].classList.contains("damaged")) {
     allCells[index].classList.remove("damaged");
     allCells[index].classList.remove("blockade");
+    score -= 10;
   }
 }
 
@@ -355,7 +362,6 @@ function checkHighScore(score) {
 function saveHighScore(score, highScore) {
   const name = prompt("You got a highscore! Enter name:");
   const newScore = { score, name };
-
   highScore.push(newScore);
   highScore.sort((a, b) => b.score - a.score);
   highScore.splice(noOfHighScores);
@@ -365,7 +371,6 @@ function saveHighScore(score, highScore) {
 function showHighScores() {
   const highScore = JSON.parse(localStorage.getItem(highScores)) ?? [];
   const highScoreList = document.querySelector("#highScores");
-
   highScoreList.innerHTML = highScore
     .map((score) => `<li>${score.score} - ${score.name}`)
     .join("");

@@ -5,28 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@700&family=Roboto+Serif:wght@200&display=swap" rel="stylesheet"> 
     <title>Space Invaders</title>
   </head>
-  <header>
+  <header class="hidden">
     <h1>SPACE INVADERS: STAR WARS EDITION</h1>
   </header>
   <body>
-    <div class="intro-game-container">
+    <div class = "start-screen">
+    <p id="first-intro">A long time ago in a galaxy far,<br>far away....</p>
+    <p id="click">ClICK ANYWHERE TO START</p>
+    </div>
+    <div class="intro-game-container hidden-two">
+      
       <div class="intro">
-        <p id="intro-text">Episode X,<br>SPACE INVADERS<br><br>It is a period of 
-          civil war. Rebel spaceships, striking from a hidden base, have
-           won their first victory against the evil Galactic Empire. 
-           During the battle, Rebel spies managed to steal secret plans 
-           to the Empire's ultimate weapon, the DEATH STAR, an 
-           armoured space station with enough power to detroy an entire
-           planet. Han Solo races home aboard his starship, the Millenium Falcon, 
-           custodian of the stolen plans that can save the rebels and restore freedom 
-           to the galaxy, but as he approches his base a fleet of TIE fighters 
-           have been waiting for him and now stand in his way. <br><br>You must take
-           the place of Han Solo and fight of the invading force.<br><br>Can you 
-           fight of the assult or will this be one fight too many....</p>
-        
-      </div><button id="start">START GAME</button>
+        <div id="intro-text">
+          <div class="title">
+            <p>Episode X</p>
+            <h1>Space Invaders</h1>
+          </div>
+            <p>
+              After the death of EMPORER PALPATINE peace has now been restored, with 
+              civilations across the galaxy prospering.<br><br>
+              However, there still remains a giant fleet of TIE fighter pilots loyal 
+              to the EMPIRE. Known as the SPACE INVADERS, due to their tactics of 
+              invading the weakest civilations.<br><br>
+              You have been tasked with defending the weak and been gifted the Millenium
+              Falcon to assist you. Destroy each wave of TIE fighters and uphold peace in
+              the Galaxy....<br><br>
+            </p>
+          </div>
+       </div>
+       <button id="start">START GAME</button>
     </div>
     <main class="hidden">
       <div class="scoreboard">
@@ -56,7 +68,7 @@
       </div>
       <div class="buttons">
         <div class="highScores">
-        <h3>HIGH SCORES</h3>
+        <h4>HIGH SCORES</h4>
         <ol id="highScores"></ol>
         </div>
         <button id="reset">RESET GAME</button>
